@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<title>Interior Costing — Read-only + Packages + Notes & Why</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<!-- Canvas Confetti Library for Congratulations Animation -->
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+	<style>
+	:root {
+		--bg: #070c1c;
+		--card: #11162b;
+		--muted: #a8b3cf;
+		--text: #eef2ff;
+		--brand: #4aa8ff;
+		--brand-2: #7c3aed;
+		--gold: #f59e0b;
+		--gold-glow: rgba(245, 158, 11, 0.4);
+
+		--good: #22c55e;
+		--warn: #f59e0b;
+		--bad: #ef4444;
+		--surface: #0e1430;
+		--ring: 0 0 0 2px rgba(74, 168, 255, .35);
+		--shadow: 0 20px 40px rgba(0, 0, 0, .35);
+		--radius: 18px;
+		--basic-color: #8b5e3c;
+		--basic-glow: rgba(139, 94, 60, 0.4);
+		--basic-bg: linear-gradient(180deg, rgba(61, 38, 22, 0.4), rgba(20, 14, 10, 0.6));
+
+		--premium-color: #e2e8f0;
+		--premium-glow: rgba(226, 232, 240, 0.35);
+		--premium-bg: linear-gradient(180deg, rgba(39, 47, 61, 0.5), rgba(15, 20, 28, 0.7));
+
+		--luxury-color: #ffd700;
+		--luxury-glow: rgba(255, 215, 0, 0.4);
+		--luxury-bg: linear-gradient(180deg, rgba(61, 48, 17, 0.5), rgba(25, 20, 6, 0.7));
+	}
+	
+	* {
+		box-sizing: border-box
+	}
+	
+	html,
+	body {
+		height: 100%
+	}
+	
+	body {
+		margin: 0;
+		font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+		background: radial-gradient(1200px 600px at 70% -10%, rgba(124, 58, 237, .22), transparent 60%), radial-gradient(1000px 500px at 10% 0%, rgba(74, 168, 255, 22%), transparent 60%), var(--bg);
+		color: var(--text);
+		line-height: 1.45;
+	}
+	
+	a {
+		color: var(--brand)
+	}
+	
+	.container {
+		width: min(1180px, 94vw);
+		margin: 0 auto;
+	}
+	
+	.hero {
+		position: relative;
+		padding: 64px 0 18px;
+		text-align: center
+	}
+	
+	.badge {
+		display: inline-flex;
+		gap: 8px;
+		align-items: center;
+		padding: 6px 12px;
+		border-radius: 999px;
+		background: linear-gradient(90deg, rgba(124, 58, 237, .18), rgba(74, 168, 255, .18));
+		color: var(--muted);
+		font-size: 12px;
+		letter-spacing: .3px;
+		text-transform: uppercase;
+		border: 1px solid rgba(148, 163, 184, .18)
+	}
+	
+	.title {
+		font-family: Poppins, Inter;
+		font-weight: 700;
+		font-size: clamp(28px, 4.6vw, 44px);
+		margin: 14px 0 6px
+	}
+	
+	.btn {
+		padding: 10px 14px;
+		border-radius: 14px;
+		border: 1px solid rgba(255, 255, 255, .12);
+		background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+		color: var(--text);
+		font-weight: 600;
+		cursor: pointer;
+		transition: .2s transform, .2s box-shadow, .2s border-color, .2s background;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px
+	}
+	
+	.btn:hover {
+		transform: translateY(-1px);
+		box-shadow: var(--shadow);
+		border-color: rgba(255, 255, 255, .22)
+	}
+	
+	.btn.primary {
+		background: linear-gradient(90deg, var(--brand), var(--brand-2));
+		border: none
+	}
+	
+	.btn.ghost {
+		background: transparent;
+		border: 1px dashed rgba(255, 255, 255, .2)
+	}
+	
+	.btn.selected {
+		background: linear-gradient(90deg, var(--brand), var(--brand-2));
+		border: none;
+		box-shadow: 0 0 0 4px rgba(74, 168, 255, .25)
+	}
+	
+	.chip {
+		display: inline-flex;
+		padding: 6px 10px;
+		border: 1px solid rgba(255, 255, 255, .14);
+		border-radius: 999px;
+		gap: 8px;
+		align-items: center;
+		font-size: 12px;
+		color: var(--muted)
+	}
+	
+	section {
+		padding: 22px 0
+	}
+	
+	.section-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: 12px
+	}
+	
+	.section-head h2 {
+		font-family: Poppins;
+		font-size: clamp(18px, 3.5vw, 28px);
+		margin: 0
+	}
+	
+	.section-head p {
+		color: var(--muted);
+		margin: 4px 0 0;
+		font-size: 14px
+	}
+	
+	.grid {
+		display: grid;
+		gap: 14px
+	}
+	
+	@media(min-width:940px) {
+		.grid.cols-3 {
+			grid-template-columns: repeat(3, 1fr)
+		}
+		.grid.cols-2 {
+			grid-template-columns: 1.1fr .9fr
+		}
+	}
+	
+	.card {
+		border-radius: var(--radius);
+		background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+		border: 1px solid rgba(255, 255, 255, .08);
+		box-shadow: var(--shadow);
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.card-pad {
+		padding: 16px
+	}
+	
+	.img {
+		aspect-ratio: 16/9;
+		width: 100%;
+		display: block;
+		object-fit: cover;
+		background: #0c1333;
+	}
+	
+	.money {
+		font-variant-numeric: tabular-nums;
+		font-weight: 700
+	}
+	
+	.tag {
+		font-size: 12px;
+		color: var(--muted)
+	}
+	
+	.rise {
+		opacity: 0;
+		transform: translateY(12px);
+		transition: .6s cubic-bezier(.2, .65, .2, 1);
+	}
+	
+	.rise.show {
+		opacity: 1;
+		transform: translateY(0)
+	}
+	
+	.kpis {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px
+	}
+	
+	@media(min-width:640px) {
+		.kpis {
+			grid-template-columns: repeat(3, 1fr)
+		}
+	}
+	
+	.kpi {
+		padding: 14px;
+		border-radius: 16px;
+		background: #0b1330;
+		border: 1px solid rgba(255, 255, 255, .10);
+		display: grid;
+		gap: 2px
+	}
+	
+	.kpi .label {
+		font-size: 12px;
+		color: var(--muted)
+	}
+	
+	.kpi .value {
+		font-size: 18px;
+		font-weight: 800
+	}
+	
+	.cost-legend {
+		display: grid;
+		grid-template-columns: 2fr 1fr 100px;
+		gap: 10px;
+		padding: 10px;
+		font-weight: 700;
+		position: sticky;
+		top: 0;
+		backdrop-filter: blur(8px);
+		background: rgba(14, 20, 48, .85);
+		z-index: 5;
+	}
+	
+	.cost-row {
+		display: grid;
+		grid-template-columns: 2fr 1fr 100px;
+		gap: 10px;
+		align-items: center;
+		padding: 10px;
+		border-bottom: 1px dashed rgba(255, 255, 255, .08)
+	}
+	
+	.room-header {
+		padding: 8px 12px;
+		background: linear-gradient(90deg, rgba(124, 58, 237, .18), rgba(74, 168, 255, .18));
+		border: 1px solid rgba(255, 255, 255, .12);
+		border-radius: 12px;
+		margin: 14px 0 6px;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.room-subtotal {
+		display: flex;
+		justify-content: flex-end;
+		font-weight: 700;
+		padding: 10px 0;
+		border-top: 1px dashed rgba(255, 255, 255, .12)
+	}
+	
+	.grand-wrap {
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: 1px dashed rgba(255, 255, 255, .2)
+	}
+	
+	.grand-line {
+		display: flex;
+		justify-content: flex-end;
+		gap: 18px;
+		font-size: 18px;
+		font-weight: 800
+	}
+	
+	.muted {
+		color: var(--muted);
+		font-size: 12px
+	}
+	
+	.btn-remove {
+		padding: 6px 12px;
+		font-size: 12px;
+		border-radius: 8px;
+	}
+
+	.payment-header,
+	.payment-row {
+		display: grid;
+		grid-template-columns: 80px 1fr;
+		gap: 12px;
+		padding: 12px;
+		align-items: center;
+		border-bottom: 1px dashed rgba(255, 255, 255, .08);
+	}
+	.payment-header {
+		font-weight: 700;
+		background: rgba(14, 20, 48, .85);
+		border-bottom: 1px solid rgba(255, 255, 255, .12);
+		border-radius: 10px;
+	}
+	.payment-no {
+		font-weight: 700;
+		color: var(--brand);
+	}
+
+	.pkg-grid {
+		display: grid;
+		gap: 14px
+	}
+	
+	@media(min-width:860px) {
+		.pkg-grid {
+			grid-template-columns: repeat(3, 1fr)
+		}
+	}
+	.pkg-card {
+		transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+		cursor: pointer;
+	}
+
+	.pkg-card:hover {
+		transform: translateY(-4px);
+	}
+	.pkg-card .title {
+		font-size: 20px;
+		margin: 0 0 6px
+	}
+	
+	.badge-pkg {
+		font-size: 11px;
+		opacity: .85
+	}
+	
+	.features {
+		margin: 8px 0 0 16px;
+		padding: 0;
+		font-size: 14px
+	}
+	
+	.pkg-price {
+		font-size: 28px;
+		font-weight: 800;
+		margin: 10px 0 6px
+	}
+	
+	.pkg-card[data-pkg="basic"] {
+		border-color: rgba(139, 94, 60, 0.3);
+	}
+	.pkg-card[data-pkg="basic"] .title {
+		color: #d2a679;
+	}
+	.pkg-card[data-pkg="basic"].active {
+		background: var(--basic-bg);
+		border-color: var(--basic-color);
+		box-shadow: 0 0 25px var(--basic-glow), inset 0 0 15px rgba(139, 94, 60, 0.15);
+	}
+	.pkg-card[data-pkg="basic"].active .usePkg {
+		background: var(--basic-color);
+		border-color: #a6734c;
+		color: #fff;
+		box-shadow: 0 0 12px var(--basic-glow);
+	}
+
+	/* Premium Card Default & Selected (Silver Tone) */
+	.pkg-card[data-pkg="premium"] {
+		border-color: rgba(226, 232, 240, 0.25);
+	}
+	.pkg-card[data-pkg="premium"] .title {
+		color: #e2e8f0;
+	}
+	.pkg-card[data-pkg="premium"].active {
+		background: var(--premium-bg);
+		border-color: var(--premium-color);
+		box-shadow: 0 0 25px var(--premium-glow), inset 0 0 15px rgba(226, 232, 240, 0.15);
+	}
+	.pkg-card[data-pkg="premium"].active .usePkg {
+		background: #cbd5e1;
+		border-color: #ffffff;
+		color: #0f172a;
+		box-shadow: 0 0 12px var(--premium-glow);
+	}
+
+	/* Luxury Card Default & Selected (Gold Tone) */
+	.pkg-card[data-pkg="luxury"] {
+		border-color: rgba(255, 215, 0, 0.3);
+	}
+	.pkg-card[data-pkg="luxury"] .title {
+		color: #ffd700;
+	}
+	.pkg-card[data-pkg="luxury"].active {
+		background: var(--luxury-bg);
+		border-color: var(--luxury-color);
+		box-shadow: 0 0 25px var(--luxury-glow), inset 0 0 15px rgba(255, 215, 0, 0.2);
+	}
+	.pkg-card[data-pkg="luxury"].active .usePkg {
+		background: linear-gradient(135deg, #ffd700, #d4af37);
+		border-color: #fff099;
+		color: #1a1400;
+		box-shadow: 0 0 12px var(--luxury-glow);
+	}
+
+	/* Active badge styling in costing section header */
+	.badge-pkg.basic-theme {
+		background: rgba(139, 94, 60, 0.25);
+		border-color: var(--basic-color);
+		color: #d2a679;
+	}
+	.badge-pkg.premium-theme {
+		background: rgba(226, 232, 240, 0.2);
+		border-color: var(--premium-color);
+		color: #e2e8f0;
+	}
+	.badge-pkg.luxury-theme {
+		background: rgba(255, 215, 0, 0.2);
+		border-color: var(--luxury-color);
+		color: #ffd700;
+	}
+	
+	.delta {
+		margin-top: 4px;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	.pkg-card[data-pkg="basic"] .delta.good { color: #d2a679; }
+	.pkg-card[data-pkg="premium"] .delta.good { color: #e2e8f0; }
+	.pkg-card[data-pkg="luxury"] .delta.good { color: #ffd700; }
+	
+		
+	.modal-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.75);
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10000;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity .2s ease;
+	}
+	.modal-overlay.open {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	.modal-card {
+		background: var(--card);
+		border: 1px solid rgba(255, 255, 255, .15);
+		border-radius: var(--radius);
+		padding: 24px;
+		max-width: 420px;
+		width: 90%;
+		text-align: center;
+		box-shadow: var(--shadow);
+	}
+	.modal-options {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 18px;
+	}
+	
+	@media(max-width: 600px) {
+		body {
+			font-size: 13px;
+		}
+		.container {
+			width: 95vw;
+		}
+		.card-pad {
+			padding: 10px;
+		}
+		.btn {
+			padding: 8px 10px;
+			font-size: 12px;
+		}
+		.pkg-price {
+			font-size: 22px;
+		}
+		.grid.cols-3, .grid.cols-2,.grid.cols-4 {
+			grid-template-columns: 1fr;
+		}
+
+		.cost-legend,
+		.cost-row {
+			grid-template-columns: 1fr auto auto;
+			gap: 8px;
+			padding: 8px 4px;
+		}
+
+		.btn-remove {
+			width: 30px;
+			height: 30px;
+			padding: 0;
+			border-radius: 50%;
+			background: rgba(239, 68, 68, .12);
+			border: 1px solid rgba(239, 68, 68, .4);
+			color: #f87171;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.btn-remove span {
+			display: none;
+		}
+		
+		.btn-remove::after {
+			content: '✕';
+			font-size: 13px;
+			font-weight: 700;
+			line-height: 1;
+		}
+		
+		.room-header {
+			font-size: 13px;
+			padding: 6px 10px;
+		}
+		
+		.grand-line {
+			font-size: 15px;
+			gap: 10px;
+		}
+
+		.payment-header,
+		.payment-row {
+			grid-template-columns: 40px 1fr;
+			gap: 8px;
+			padding: 8px 4px;
+		}
+	}
+	.milestone-card {
+      width: 100%;
+      max-width: 450px;
+      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 20px 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+	.milestone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .milestone-item {
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      background-color: rgba(15, 23, 42, 0.6);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .milestone-item.active {
+      border-color: #3b82f6;
+      background-color: rgba(30, 58, 138, 0.25);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Interactive Row Header */
+    .milestone-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .milestone-no {
+      width: 10%;
+      font-weight: 700;
+      font-size: 15px;
+      color: #60a5fa;
+    }
+
+    .milestone-pct {
+      width: 18%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pct-badge {
+      background: #2e1065;
+      color: #c084fc;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 12px;
+      border: 1px solid #581c87;
+    }
+
+    .milestone-title {
+      width: 64%;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.3;
+      color: #f1f5f9;
+      padding-left: 8px;
+    }
+
+    .arrow-icon {
+      width: 8%;
+      text-align: right;
+      color: #64748b;
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .milestone-item.active .arrow-icon {
+      transform: rotate(180deg);
+      color: #60a5fa;
+    }
+
+    /* Embedded Hint Section */
+    .hint-window {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+      background-color: rgba(15, 23, 42, 0.8);
+      border-top: 0px solid transparent;
+    }
+	.card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1e2d42;
+      margin-bottom: 12px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .card-header .col-no { width: 10%; }
+    .card-header .col-pct { width: 18%; text-align: center; }
+    .card-header .col-stage { width: 72%; }
+    .milestone-item.active .hint-window {
+      max-height: 200px; /* Expand transition */
+      border-top: 1px dashed #1e3a8a;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    .hint-content {
+      padding: 12px;
+    }
+
+    .hint-header {
+      display: flex;
+      justify-content: space-between;
+      color: #f59e0b;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .hint-text {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+	
+	/* WHY CHOOSE US & JOURNEY TIMELINE */
+	.why-card {
+		position: relative;
+		padding: 24px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		background: linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(17, 22, 43, 0.8) 100%);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 20px;
+		transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.why-card:hover {
+		transform: translateY(-6px);
+		border-color: rgba(124, 58, 237, 0.4);
+		box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
+	}
+
+	.why-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: 12px;
+		background: linear-gradient(135deg, rgba(74, 168, 255, 0.2), rgba(124, 58, 237, 0.2));
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		margin-bottom: 14px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.why-title {
+		font-size: 18px;
+		font-weight: 700;
+		margin: 0 0 8px;
+	}
+		.why-desc {
+		font-size: 13.5px;
+		color: var(--muted);
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.process-container {
+		position: relative;
+		margin-top: 20px;
+	}
+	
+	.process-track {
+		display: none;
+	}
+	
+	@media(min-width: 940px) {
+		.process-track {
+			display: block;
+			position: absolute;
+			top: 50px;
+			left: 10%;
+			right: 10%;
+			height: 3px;
+			background: rgba(255, 255, 255, 0.1);
+			z-index: 1;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.process-progress-bar {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--gold));
+			box-shadow: 0 0 12px var(--brand);
+			transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+	}
+		.step-card {
+			position: relative;
+			z-index: 2;
+			background: rgba(17, 22, 43, 0.85);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 20px;
+			padding: 22px;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			backdrop-filter: blur(16px);
+			transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+			opacity: 0.35;
+			filter: grayscale(0.8);
+			transform: scale(0.97);
+		}
+		
+	.step-card.active-step {
+		opacity: 1;
+		filter: grayscale(0);
+		transform: scale(1.02) translateY(-4px);
+		border-color: rgba(74, 168, 255, 0.6);
+		box-shadow: 0 20px 40px rgba(74, 168, 255, 0.2);
+	}
+	
+	.step-card.completed-step {
+		opacity: 0.85;
+		filter: grayscale(0);
+		transform: scale(1);
+		border-color: rgba(34, 197, 94, 0.4);
+	}
+	
+	.step-card.collapsed-step {
+		padding: 14px 18px;
+		cursor: pointer;
+		border-color: rgba(34, 197, 94, 0.4);
+		background: rgba(14, 20, 48, 0.7);
+		opacity: 0.9;
+		filter: grayscale(0);
+		transform: scale(1);
+	}
+		.step-card.collapsed-step .step-content-collapsible {
+		display: none !important;
+	}
+	
+	.step-card.collapsed-step .step-node {
+		width: 32px;
+		height: 32px;
+		font-size: 13px;
+		margin-bottom: 0;
+	}
+	
+	.step-card.collapsed-step .collapsed-header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+	
+	.step-card.collapsed-step .step-title {
+		font-size: 15px;
+		margin: 0;
+	}
+
+	.step-card.collapsed-step:hover {
+		border-color: var(--brand);
+		background: rgba(17, 22, 43, 0.95);
+	}
+
+	.step-node {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: #0e1430;
+		border: 2px solid rgba(255, 255, 255, 0.2);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 800;
+		font-size: 15px;
+		color: #fff;
+		margin-bottom: 16px;
+		position: relative;
+		transition: all 0.4s ease;
+		flex-shrink: 0;
+	}
+
+	.step-card.active-step .step-node {
+		border-color: var(--brand);
+		box-shadow: 0 0 20px rgba(74, 168, 255, 0.6);
+		color: var(--brand);
+		background: #11183c;
+	}
+
+	.step-card.completed-step .step-node,
+	.step-card.collapsed-step .step-node {
+		border-color: var(--good);
+		box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+		color: var(--good);
+	}
+
+	.step-tag {
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: var(--brand);
+		margin-bottom: 6px;
+	}
+
+	.step-title {
+		font-size: 17px;
+		font-weight: 700;
+		margin: 0 0 8px;
+		color: #fff;
+	}
+
+	.step-desc {
+	color: var(--muted);
+		line-height: 1.55;
+		margin: 0 0 14px;
+		flex-grow: 1;
+	}
+		.step-time {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 4px 10px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		font-size: 11px;
+		color: var(--muted);
+		width: fit-content;
+		margin-bottom: 14px;
+	}
+
+	.step-actions {
+		margin-top: auto;
+		padding-top: 10px;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		display: flex;
+		gap: 8px;
+	}
+
+	.congrats-card {
+		display: none;
+		margin-top: 24px;
+		padding: 24px;
+		border-radius: 20px;
+		background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(124, 58, 237, 0.15));
+		border: 1px solid var(--gold);
+		text-align: center;
+		box-shadow: 0 0 30px var(--gold-glow);
+		animation: popup 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+
+	@keyframes popup {
+		0% { opacity: 0; transform: scale(0.9); }
+		100% { opacity: 1; transform: scale(1); }
+	}
+
+	.congrats-card h3 {
+		font-family: Poppins;
+		font-size: 24px;
+		margin: 0 0 8px;
+		color: var(--gold);
+	}
+
+	.congrats-card p {
+		margin: 0 0 16px;
+		color: #fff;
+		font-size: 14px;
+	}
+	
+		.payment-header-grid,
+		.payment-row-interactive {
+			grid-template-columns: 30px 50px 1fr auto;
+			gap: 6px;
+			padding: 12px 10px;
+			font-size: 12px;
+		}
+				.payment-pct-badge {
+			font-size: 11px;
+			padding: 2px 5px;
+			}
+			
+
+	</style>
+</head>
+
+<body>
+	<header class="hero container">
+		<div class="badge rise">InterioArc • Interior + Packages</div>
+	</header>
+	<main class="container">
+		<!-- Packages (Instant Comparison) -->
+		<section id="packages" class="rise">
+			<div class="section-head">
+				<h2>Packages (Instant Comparison)</h2> </div>
+			<div class="pkg-grid">
+				<div class="card pkg-card" data-pkg="basic"> 
+					<div class="card-pad">
+						<h3 class="title">Basic</h3>
+						<div class="chip">Laminate Finish, BWP WaterProof Ply, Epco Hardware</div>
+						<ul class="features">
+							<li>Entertainment/TV Unit</li>
+							<li>Wardrobes with Loft in All 3 Rooms</li>
+							<li>Kicthen Cabinet with Loft</li>
+						</ul>
+						<div class="pkg-price" id="price-basic">₹—</div>
+						<div class="delta" id="delta-basic">—</div>
+						<div class="tag" id="tag-basic">Includes 5% package discount</div>
+						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+							<button class="btn ghost usePkg" data-pick="basic">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+					</div>
+				</div>
+				<div class="card pkg-card" data-pkg="premium"> 
+					<div class="card-pad">
+						<h3 class="title">Premium</h3>
+						<div class="chip">Acrylic shutters, BWP in kitchen, Soft-close Hardware</div>
+						<ul class="features">
+							<li>Entertainment/TV Unit with Home Office</li>
+							<li>Kicthen with Acrylic Finish Shutters</li>
+							<li>Wardrobes with Loft in All 3 Rooms & Study</li>
+						</ul>
+						<div class="pkg-price" id="price-premium">₹—</div>
+						<div class="delta" id="delta-premium">—</div>
+						<div class="tag" id="tag-premium">Includes 10% package discount</div>
+						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+							<button class="btn usePkg" data-pick="premium">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+					</div>
+				</div>
+				<div class="card pkg-card" data-pkg="luxury"> 
+					<div class="card-pad">
+						<h3 class="title">Luxury</h3>
+						<div class="chip">Glass shutters, Fabrication, Premium Furniture</div>
+						<ul class="features">
+							<li>Complete Acrylic Finish, Fabrication & Ceiling</li>
+							<li>Fabrication with Safety Grills</li>
+							<li>Furniture with Curtains</li>
+						</ul>
+						<div class="pkg-price" id="price-luxury">₹—</div>
+						<div class="delta" id="delta-luxury">—</div>
+						<div class="tag" id="tag-luxury">Includes 20% package discount</div>
+						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+							<button class="btn ghost usePkg" data-pick="luxury">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- READ-ONLY GROUPED COSTING -->
+		<section id="costing" class="rise">
+			<div class="section-head">
+				<h2>Package Details </h2> 
+				<p id="selectedPackage" class="badge badge-pkg"></p></div>
+			<div class="card"> 
+				<div class="card-pad">
+					<div class="cost-legend">
+						<div>Item</div>
+						<div>Amount</div>
+					</div>
+					<div id="roContainer"></div>
+					<div class="grand-wrap">
+						<div class="grand-line"><span>Section Subtotal</span><span id="sectionSubtotal">₹0</span></div>
+						<div class="grand-line"><span>Total Discount</span><span id="sectionDiscount">₹0</span></div>
+						<div class="grand-line"><span>Grand Total (after Discount)</span><span id="sectionGrand">₹0</span></div>
+						<div class="muted">Note: Prices Above are non-GST.</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Removed / Extra Items (Add Extra Items) -->
+		<section id="removed" class="rise">
+			<div class="section-head">
+				<h2>Add Extra Items</h2>
+				<button class="btn primary" id="addAllBtn">Add all</button>
+			</div>
+			<div class="card card-pad" id="removedWrap">
+				<div class="tag">No extra items available.</div>
+			</div>
+		</section>
+		<!-- KPIs -->
+		<section id="highlights" class="rise">
+			<div class="section-head">
+				<h2>Totals</h2>
+			</div>
+			<div class="kpis">
+				<div class="kpi">
+					<div class="label">Total Discount</div>
+					<div id="kpi-subtotal" class="value money">₹0</div>
+				</div>
+				<div class="kpi">
+					<div class="label">Grand Total</div>
+					<div id="kpi-grand" class="value money">₹0</div>
+				</div>
+			</div>
+		</section>
+		<!-- Payment Terms -->
+		<section id="payment-terms" class="rise">
+			<div class="section-head">
+				<h2>Payment Terms</h2>
+				<p>Stage-wise milestone.</p>
+			</div>
+			<div class="milestone-card">
+				<!-- Header -->
+				<div class="card-header">
+				  <span class="col-no">NO</span>
+				  <span class="col-pct">%</span>
+				  <span class="col-stage">MILESTONE STAGE</span>
+				</div>
+
+				<!-- Interactive Items -->
+				<div class="milestone-list">
+
+				  <!-- Item 1 -->
+				  <div class="milestone-item active" onclick="toggleMilestone(this)">
+					<div class="milestone-row">
+					  <span class="milestone-no">1</span>
+					  <div class="milestone-pct"><span class="pct-badge">10%</span></div>
+					  <span class="milestone-title">Design Advance & 3D Sign-off</span>
+					  <span class="arrow-icon">&#9660;</span>
+					</div>
+					<div class="hint-window">
+					  <div class="hint-content">
+						<div class="hint-header">
+						  <span>🏗 Execution Hint</span>
+						  <span>Stage 1</span>
+						</div>
+						<p class="hint-text">
+						  Initial design freezing, 3D render sign-off, and raw material procurement initiated at factory.
+						</p>
+					  </div>
+					</div>
+				  </div>
+
+				  <!-- Item 2 -->
+				  <div class="milestone-item" onclick="toggleMilestone(this)">
+					<div class="milestone-row">
+					  <span class="milestone-no">2</span>
+					  <div class="milestone-pct"><span class="pct-badge">40%</span></div>
+					  <span class="milestone-title">Material Procurement & Factory Cutting</span>
+					  <span class="arrow-icon">&#9660;</span>
+					</div>
+					<div class="hint-window">
+					  <div class="hint-content">
+						<div class="hint-header">
+						  <span>🏗 Execution Hint</span>
+						  <span>Stage 2</span>
+						</div>
+						<p class="hint-text">
+						  Precision panel cutting, edge-banding, and quality check of raw materials completed on factory floor.
+						</p>
+					  </div>
+					</div>
+				  </div>
+
+				  <!-- Item 3 -->
+				  <div class="milestone-item" onclick="toggleMilestone(this)">
+					<div class="milestone-row">
+					  <span class="milestone-no">3</span>
+					  <div class="milestone-pct"><span class="pct-badge">35%</span></div>
+					  <span class="milestone-title">Carcass Completion & Site Dispatch</span>
+					  <span class="arrow-icon">&#9660;</span>
+					</div>
+					<div class="hint-window">
+					  <div class="hint-content">
+						<div class="hint-header">
+						  <span>🏗 Execution Hint</span>
+						  <span>Stage 3</span>
+						</div>
+						<p class="hint-text">
+						  Pre-assembly of modular carcasses, flat-pack packaging, and dispatching units to job site.
+						</p>
+					  </div>
+					</div>
+				  </div>
+
+				  <!-- Item 4 -->
+				  <div class="milestone-item" onclick="toggleMilestone(this)">
+					<div class="milestone-row">
+					  <span class="milestone-no">4</span>
+					  <div class="milestone-pct"><span class="pct-badge">15%</span></div>
+					  <span class="milestone-title">Hardware, Shutter Fixing & Final Handover</span>
+					  <span class="arrow-icon">&#9660;</span>
+					</div>
+					<div class="hint-window">
+					  <div class="hint-content">
+						<div class="hint-header">
+						  <span>🏗 Execution Hint</span>
+						  <span>Stage 4</span>
+						</div>
+						<p class="hint-text">
+						  On-site assembly, hinge/hardware alignment, shutter installation, and final client sign-off.
+						</p>
+					  </div>
+					</div>
+				  </div>
+
+				</div>
+			</div>
+		</section>
+		<!-- WHY CHOOSE US SECTION -->
+		<section id="why-choose-us" class="rise">
+			<div class="section-head">
+				<div>
+					<h2>Why Choose InterioArc</h2>
+					<p>Crafting bespoke architectural interiors with uncompromised precision.</p>
+				</div>
+			</div>
+			<div class="grid cols-3">
+				<div class="why-card">
+					<div class="why-icon">✦</div>
+					<h3 class="why-title">German Precision Engineering</h3>
+					<p class="why-desc">We exclusively integrate top-tier Hettich & Hafele soft-close hardware, ensuring whisper-quiet longevity for all cabinetry and moveable architectural elements.</p>
+				</div>
+				<div class="why-card">
+					<div class="why-icon">💎</div>
+					<h3 class="why-title">Transparent Line-Item BOQ</h3>
+					<p class="why-desc">No hidden expenses or ambiguous estimations. Detailed material grades, hardware specifications, and visual reference grids are transparently documented.</p>
+				</div>
+				<div class="why-card">
+					<div class="why-icon">🛡️</div>
+					<h3 class="why-title">10-Year Structural Warranty</h3>
+					<p class="why-desc">Built with Boiling Water Proof (BWP) plywood carcass and high-pressure decorative laminates, backed by our comprehensive warranty and dedicated post-handover support.</p>
+				</div>
+			</div>
+		</section>
+		<!-- 4 STEPS TO COMPLETE INTERIOR WORK JOURNEY -->
+		<section id="interior-journey" class="rise">
+			<div class="section-head">
+				<div>
+					<h2>4-Step Interior Execution Journey</h2>
+					<p>An orchestrated, stress-free pathway from initial vision to final key handover.</p>
+				</div>
+			</div>
+			<div class="process-container" id="journeyContainer">
+				<div class="process-track">
+					<div class="process-progress-bar" id="progressBar"></div>
+				</div>
+				<div class="grid cols-4">
+					<!-- Step 1 -->
+					<div class="step-card active-step" id="stepCard1" onclick="handleCardClick(1)">
+						<div class="collapsed-header">
+							<div class="step-node" id="stepNode1">01</div>
+							<h3 class="step-title">Design & 3D Visualization</h3>
+						</div>
+						<div class="step-content-collapsible">
+							<div class="step-tag">Step 1 • Discovery</div>
+							<p class="step-desc">In-depth site measurements, space planning, material sampling, and interactive 3D renders customized to your lifestyle aesthetics.</p>
+							<div class="step-time">⏱️ Week 1 – 2</div>
+							<div class="step-actions">
+								<button class="btn primary" onclick="event.stopPropagation(); goToStep(2)" style="width:100%;">Proceed to Step 2 →</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 2 -->
+					<div class="step-card" id="stepCard2" onclick="handleCardClick(2)">
+						<div class="collapsed-header">
+							<div class="step-node" id="stepNode2">02</div>
+							<h3 class="step-title">3D Sign-off & Final BOQ</h3>
+						</div>
+						<div class="step-content-collapsible">
+							<div class="step-tag">Step 2 • Agreement</div>
+							<p class="step-desc">Selection of packages, precise line-item cost freezing, production drawings sign-off, and initial advance payment processing.</p>
+							<div class="step-time">⏱️ Week 2</div>
+							<div class="step-actions">
+								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(1)">← Back</button>
+								<button class="btn primary" onclick="event.stopPropagation(); goToStep(3)" style="flex-grow:1;">Proceed to Step 3 →</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 3 -->
+					<div class="step-card" id="stepCard3" onclick="handleCardClick(3)">
+						<div class="collapsed-header">
+							<div class="step-node" id="stepNode3">03</div>
+							<h3 class="step-title">Precision Factory Production</h3>
+						</div>
+						<div class="step-content-collapsible">
+							<div class="step-tag">Step 3 • Off-Site Crafting</div>
+							<p class="step-desc">High-precision laser edge-banding and CNC cutting of modular carcasses at our automated facility, parallel to site civil work.</p>
+							<div class="step-time">⏱️ Week 3 – 5</div>
+							<div class="step-actions">
+								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(2)">← Back</button>
+								<button class="btn primary" onclick="event.stopPropagation(); goToStep(4)" style="flex-grow:1;">Proceed to Step 4 →</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 4 -->
+					<div class="step-card" id="stepCard4" onclick="handleCardClick(4)">
+						<div class="collapsed-header">
+							<div class="step-node" id="stepNode4">04</div>
+							<h3 class="step-title">Installation & Key Handover</h3>
+						</div>
+						<div class="step-content-collapsible">
+							<div class="step-tag">Step 4 • On-Site Finish</div>
+							<p class="step-desc">Seamless site assembly of carcasses, shutter fittings, false ceiling illumination, deep cleaning, and formal key handover.</p>
+							<div class="step-time">⏱️ Week 6 – 7</div>
+							<div class="step-actions">
+								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(3)">← Back</button>
+								<button class="btn gold-btn" onclick="event.stopPropagation(); finishJourney()" style="flex-grow:1;">Complete Journey 🎉</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Congratulations Reveal Box -->
+				<div class="congrats-card" id="congratsBox">
+					<h3>🎉 Congratulations! Your Dream Interior Journey Begins Here</h3>
+					<p>You have reviewed all execution milestones. We are ready to transform your architectural vision into a stunning reality.</p>
+					<button class="btn primary" onclick="goToStep(1)">Replay Journey Steps 🔄</button>
+				</div>
+			</div>
+		</section>
+		<!-- Completed Interior Projects -->
+		<section id="projects" class="rise">
+			<div class="section-head">
+				<h2>Completed Interior Projects</h2> </div>
+			<div class="grid cols-3">
+				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop" alt="Project A Living">
+					<div class="card-pad">
+						<h3 class="title" style="font-size:18px">Vakil Metropolis — 3BHK</h3>
+						<div class="chip">Timeline: 7 weeks</div>
+						<p class="tag" style="margin-top:6px">Kitchen + 3 wardrobes + TV wall + ceiling lights</p>
+					</div>
+				</div>
+				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1600&auto=format&fit=crop" alt="Project B Kitchen">
+					<div class="card-pad">
+						<h3 class="title" style="font-size:18px">Prestige Tranquility — 2BHK</h3>
+						<div class="chip">Timeline: 6 weeks</div>
+						<p class="tag" style="margin-top:6px">Acrylic kitchen, BWP carcass, soft-close everywhere</p>
+					</div>
+				</div>
+				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop" alt="Project C Wardrobe">
+					<div class="card-pad">
+						<h3 class="title" style="font-size:18px">Sobha City — 4BHK</h3>
+						<div class="chip">Timeline: 8–9 weeks</div>
+						<p class="tag" style="margin-top:6px">PU wardrobes, study, false ceiling & electrical</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+	</main>
+		<footer class="container" style="padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 40px;">Built for <strong>Clients • Vakil Metropolis</strong> by InterioArc Design Studio</footer>
+	
+	<!-- Package Selection Modal -->
+	<div class="modal-overlay" id="packageModal">
+		<div class="modal-card">
+			<h3 style="margin: 0 0 8px 0; font-size: 20px;">Select a Package</h3>
+			<p style="margin: 0; color: var(--muted); font-size: 14px;">Choose a package to apply across all sections.</p>
+			<div class="modal-options">
+				<button class="btn primary" data-select-pkg="basic">Basic Package</button>
+				<button class="btn primary" data-select-pkg="premium">Premium Package (Recommended)</button>
+				<button class="btn primary" data-select-pkg="luxury">Luxury Package</button>
+				<button class="btn ghost" id="modalCancel" style="margin-top: 6px;">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="toast" style="position:fixed; top:18px; right:18px; background:#0b1330; color:#fff; padding:10px 16px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,.35); opacity:0; transition:opacity .25s, transform .25s; transform:translateY(-10px); z-index:9999;"></div>
+
+	<script>
+		// Interactive Payment Schedule Data with completion hints & dual progress metrics
+	const paymentStages = [
+		{
+			no: 1,
+			pct: 10,
+			cumPayPct: 10,
+			workPct: 15,
+			stage: 'Advance Booking & 3D Sign-off',
+			hint: 'Design freeze, detailed 2D/3D production drawings completed, and raw BWP/HDF board procurement initiated.'
+		},
+		{
+			no: 2,
+			pct: 40,
+			cumPayPct: 50,
+			workPct: 50,
+			stage: 'Material Procurement & Factory Cutting',
+			hint: 'All plywood, hardware, and laminates delivered to factory. Precision CNC carcass cutting & edge-banding under way.'
+		},
+		{
+			no: 3,
+			pct: 35,
+			cumPayPct: 85,
+			workPct: 80,
+			stage: 'Carcass Completion & Site Dispatch',
+			hint: 'All modular carcasses assembled, edge-sealed, and delivered to site. On-site carcass mounting and civil alignment complete.'
+		},
+		{
+			no: 4,
+			pct: 15,
+			cumPayPct: 100,
+			workPct: 100,
+			stage: 'Hardware, Shutter Fixing & Final Handover',
+			hint: 'Full installation of shutters, Hettich soft-close hinges, false ceiling lighting, deep cleaning, and final key handover! 🔑'
+		}
+	];
+
+	function renderInteractivePaymentTerms() {
+		const container = document.getElementById('paymentRowsContainer');
+		if (!container) return;
+		container.innerHTML = '';
+
+		paymentStages.forEach((item, index) => {
+			const row = document.createElement('div');
+			row.className = `payment-row-interactive ${index === 0 ? 'active-payment' : ''}`;
+			row.dataset.stageIndex = index;
+
+			row.innerHTML = `
+				<div class="payment-no">${item.no}</div>
+				<div><span class="payment-pct-badge">${item.pct}%</span></div>
+				<div class="payment-stage-title">${item.stage}</div>
+				<div><span class="payment-status-icon" id="statusIcon${index}">${index === 0 ? '● Active' : 'Select'}</span></div>
+			`;
+
+			row.addEventListener('click', () => selectPaymentStage(index));
+			container.appendChild(row);
+		});
+	}
+
+	function selectPaymentStage(index) {
+		const stage = paymentStages[index];
+		if (!stage) return;
+
+		// Update Row Highlights
+		const rows = document.querySelectorAll('.payment-row-interactive');
+		rows.forEach((r, i) => {
+			const icon = document.getElementById(`statusIcon${i}`);
+			if (i === index) {
+				r.classList.add('active-payment');
+				if (icon) icon.textContent = '● Active';
+			} else {
+				r.classList.remove('active-payment');
+				if (icon) icon.textContent = 'Select';
+			}
+		});
+
+		// Animate Meter Bars
+		const payFill = document.getElementById('payMeterFill');
+		const workFill = document.getElementById('workMeterFill');
+		const payText = document.getElementById('payPctText');
+		const workText = document.getElementById('workPctText');
+
+		if (payFill) payFill.style.width = stage.cumPayPct + '%';
+		if (workFill) workFill.style.width = stage.workPct + '%';
+		if (payText) payText.textContent = stage.cumPayPct + '%';
+		if (workText) workText.textContent = stage.workPct + '%';
+
+		// Update Completion Hint
+		const hintStageNo = document.getElementById('hintStageNo');
+		const hintText = document.getElementById('hintText');
+
+		if (hintStageNo) hintStageNo.textContent = `• Stage ${stage.no}`;
+		if (hintText) hintText.textContent = stage.hint;
+	}
+
+
+	// Common additional items available to add separately for Basic/Premium
+	const addableExtraItems = [
+		{ id: 'opt_gen_1', room: 'general', name: 'Designer False Ceiling with Cove Lighting', rate: 115000, qty: 1 }, 
+		{ id: 'opt_gen_2', room: 'general', name: 'Partition between living and dining', rate: 45000, qty: 1 },
+		{ id: 'opt_gen_3', room: 'general', name: 'Curtains with wallpapers', rate: 75000, qty: 1 },
+		{ id: 'opt_gen_4', room: 'general', name: 'Royale Paint - One coat Painting for villa . Two coat paty for ceiling with two coat paint.', rate: 60000, qty: 1 },
+		{ id: 'opt_fab_1', room: 'fabrication', name: 'Safety Grill with two doors and Mangalore tile roof ', rate: 135000, qty: 1 },
+		{ id: 'opt_fab_2', room: 'fabrication', name: 'Ms Work Gazebo with Mangalore tiles roof on Terrace with Alluminium and Glass Partition', rate: 125000, qty: 1 },
+		{ id: 'opt_fab_3', room: 'fabrication', name: 'Safety Door For Main door', rate: 15000, qty: 1 },
+		{ id: 'opt_loo_1', room: 'loose', name: 'Custom Designer Sofa (3-Seater)', rate: 65000, qty: 1 },
+		{ id: 'opt_loo_2', room: 'loose', name: 'Accent chair/ Lounger (2-Seater)', rate: 40000, qty: 1 },
+		{ id: 'opt_loo_3', room: 'loose', name: 'Designer Queen Size bed without storage', rate: 50000, qty: 1 },
+		{ id: 'opt_loo_4', room: 'loose', name: 'Designer King Size bed without storage', rate: 55000, qty: 1 },
+		{ id: 'opt_loo_5', room: 'loose', name: 'Coffee Table', rate: 15000, qty: 1 },		
+		{ id: 'opt_loo_6', room: 'loose', name: 'Smart Italian Marble Top Dining Table (4-Seater)', rate: 125000, qty: 1 }
+	];
+
+	// =========================================================================
+	// SEPARATE PACKAGE SEED DATASETS
+	// Basic & Premium exclude False Ceiling, Fabrication, and Loose Furniture.
+	// Luxury includes them by default.
+	// =========================================================================
+	const packageSeeds = {
+		basic: [
+			{ id: 'b_liv_1', room: 'living', name: 'TV Unit in Laminate Panel', rate: 55000, qty: 1 },
+			{ id: 'b_kit_1', room: 'kitchen', name: 'Base Cabinets (Laminate Finish)', rate: 135000, qty: 1 },
+			{ id: 'b_kit_2', room: 'kitchen', name: 'Overhead Cabinets (Laminate Finish)', rate: 38500, qty: 1 },
+			{ id: 'b_kit_3', room: 'kitchen', name: 'Loft with Frame(Laminate Finish)', rate: 32000, qty: 1 },
+			{ id: 'b_gst_1', room: 'guest', name: 'Laminate Finish Hinged door Wardrobe with Loft Storage', rate: 100000, qty: 1 },
+			{ id: 'b_mst_1', room: 'master', name: 'Laminate Finish Hinged door Wardrobe with Loft Storage', rate: 130000, qty: 1 },
+			{ id: 'b_kid_1', room: 'kids', name: 'Laminate Finish Hinged door Wardrobe with Loft Storage', rate: 130000, qty: 1 }
+		],
+		premium: [
+			{ id: 'p_liv_1', room: 'living', name: 'Entertainment Wall Panelling in Acrylic', rate: 65000, qty: 1 },
+			{ id: 'p_kit_1', room: 'kitchen', name: 'Base Cabinets (Laminate Finish)', rate: 135000, qty: 1 },
+			{ id: 'p_kit_2', room: 'kitchen', name: 'Overhead Cabinets (Acrylic Finish)', rate: 50000, qty: 1 },
+			{ id: 'p_kit_3', room: 'kitchen', name: 'Loft with framework (Acrylic Finish)', rate: 50000, qty: 1 },
+			{ id: 'p_gst_1', room: 'guest', name: 'Laminate Finish Sliding Door Wardrobe with Loft Storage', rate: 140000, qty: 1 },
+			{ id: 'p_mst_1', room: 'master', name: 'Laminate Finish Sliding Door Wardrobe with Loft Storage', rate: 140000, qty: 1 },
+			{ id: 'p_kid_1', room: 'kids', name: 'Laminate Finish Sliding Door Wardrobe with Loft Storage', rate: 140000, qty: 1 },
+			{ id: 'p_kid_2', room: 'kids', name: 'Study Table In Laminate Finish', rate: 40000, qty: 1 },
+			{ id: 'p_hom_1', room: 'home', name: 'L shape laminate Finish Study Table with bookshelf', rate: 50000, qty: 1 }
+		],
+		luxury: [
+			{ id: 'l_liv_1', room: 'living', name: 'Luxury Fluted-Acrylic Panel & Tinted Glass TV Unit', rate: 85000, qty: 1 },
+			{ id: 'l_kit_1', room: 'kitchen', name: 'Base Cabinets (Acrylic Finish)', rate: 175000, qty: 1 },
+			{ id: 'l_kit_2', room: 'kitchen', name: 'Overhead Cabinets (Acrylic Finish)with profile lighting', rate: 50000, qty: 1 },
+			{ id: 'l_kit_3', room: 'kitchen', name: 'Loft with framework (Acrylic Finish)', rate: 50000, qty: 1 },
+			{ id: 'l_gst_1', room: 'guest', name: 'Acrylic Finish Sliding Door Wardrobe with Loft Storage', rate: 135000, qty: 1 },
+			{ id: 'l_mst_1', room: 'master', name: 'Glass shutters with aluminium profile Wardrobe with Loft Storage', rate: 175000, qty: 1 },
+			{ id: 'l_mst_2', room: 'master', name: 'Dressing Unit with Backlit LED Mirror', rate: 42000, qty: 1 },
+			{ id: 'l_kid_1', room: 'kids', name: 'Glass shutters with aluminium profile Wardrobe with Loft Storage', rate: 175000, qty: 1 },
+			{ id: 'l_kid_2', room: 'kids', name: 'Ergonomic Study Station & Bookcase', rate: 62000, qty: 1 },
+			{ id: 'l_hom_1', room: 'home', name: 'L shape laminate Finish Study Table with bookshelf', rate: 50000, qty: 1 }
+		]
+	};
+
+	// Metadata & Discounts per Package
+	const packages = {
+		basic: {
+			label: 'Basic',
+			extraDiscount: 2.2
+		},
+		premium: {
+			label: 'Premium',
+			extraDiscount: 3.7
+		},
+		luxury: {
+			label: 'Luxury',
+			extraDiscount: 3.5
+		
+		}
+	};
+
+	// Helpers
+	const f = new Intl.NumberFormat('en-IN', {
+		style: 'currency',
+		currency: 'INR',
+		maximumFractionDigits: 0
+	});
+	const money = n => f.format(n || 0);
+	const $ = s => document.querySelector(s);
+	const $$ = s => Array.from(document.querySelectorAll(s));
+	const el = (t, c) => {
+		const n = document.createElement(t);
+		if(c) n.className = c;
+		return n;
+	};
+
+	// Toast Helper
+	function showToast(msg) {
+		const t = document.getElementById('toast');
+		if(!t) return;
+		t.textContent = msg;
+		t.style.opacity = '1';
+		t.style.transform = 'translateY(0)';
+		setTimeout(() => {
+			t.style.opacity = '0';
+			t.style.transform = 'translateY(-10px)';
+		}, 1800);
+	}
+
+	// Animate
+	const io = new IntersectionObserver(es => es.forEach(e => {
+		if(e.isIntersecting) {
+			e.target.classList.add('show');
+			io.unobserve(e.target);
+		}
+	}), {
+		threshold: .12
+	});
+	$$('.rise').forEach(n => io.observe(n));
+
+		/* COLLAPSIBLE INTERACTIVE JOURNEY CONTROLLER */
+	let currentJourneyStep = 1;
+
+	function goToStep(stepNumber) {
+		currentJourneyStep = stepNumber;
+		const progressWidths = [0, 0, 33, 66, 100];
+		
+		const pBar = document.getElementById('progressBar');
+		if(pBar) pBar.style.width = progressWidths[stepNumber] + '%';
+
+		for (let i = 1; i <= 4; i++) {
+			const card = document.getElementById(`stepCard${i}`);
+			const node = document.getElementById(`stepNode${i}`);
+
+			if(!card) continue;
+
+			card.classList.remove('active-step', 'completed-step', 'collapsed-step');
+			
+			if (i === stepNumber) {
+				card.classList.add('active-step');
+				node.textContent = `0${i}`;
+			} else if (i < stepNumber) {
+				card.classList.add('collapsed-step');
+				node.textContent = '✓';
+			} else {
+				node.textContent = `0${i}`;
+			}
+		}
+
+		const congrats = document.getElementById('congratsBox');
+		if(congrats) congrats.style.display = 'none';
+
+		if(window.innerWidth < 940) {
+			const targetCard = document.getElementById(`stepCard${stepNumber}`);
+			if(targetCard) targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		}
+	}
+
+	function handleCardClick(stepNumber) {
+		if (stepNumber < currentJourneyStep) {
+			goToStep(stepNumber);
+		}
+	}
+
+	function finishJourney() {
+		goToStep(4);
+		const congrats = document.getElementById('congratsBox');
+		if(congrats) {
+			congrats.style.display = 'block';
+			congrats.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
+
+		if (typeof confetti === 'function') {
+			const duration = 2.5 * 1000;
+			const end = Date.now() + duration;
+
+			(function frame() {
+				confetti({
+					particleCount: 4,
+					angle: 60,
+					spread: 55,
+					origin: { x: 0 },
+					colors: ['#4aa8ff', '#7c3aed', '#f59e0b', '#22c55e']
+				});
+				confetti({
+					particleCount: 4,
+					angle: 120,
+					spread: 55,
+					origin: { x: 1 },
+					colors: ['#4aa8ff', '#7c3aed', '#f59e0b', '#22c55e']
+				});
+
+				if (Date.now() < end) {
+					requestAnimationFrame(frame);
+				}
+			}());
+		}
+		showToast('🎉 Congratulations on completing the interior tour!');
+	}
+
+
+	const rooms = [{
+		key: 'living',
+		label: 'Living'
+	}, {
+		key: 'kitchen',
+		label: 'Kitchen'
+	}, {
+		key: 'guest',
+		label: 'Guest Bedroom'
+	}, {
+		key: 'master',
+		label: 'Master Bedroom'
+	}, {
+		key: 'kids',
+		label: 'Kids Bedroom'
+	}, {
+		key: 'general',
+		label: 'False Ceiling / Electrical'
+	}, {
+		key: 'fabrication',
+		label: 'Fabrication / Grills'
+	},{
+		key: 'home',
+		label: 'Home Office'
+	}, 
+	{
+		key: 'loose',
+		label: 'Loose Furniture'
+	}];
+
+	// -------------------------------------------------------------------------
+	// RESET ON REFRESH LOGIC: Clear saved state if reloading/refreshing the page
+	// -------------------------------------------------------------------------
+	if (!sessionStorage.getItem('is_reloaded')) {
+		sessionStorage.setItem('is_reloaded', '1');
+	} else {
+		// Page was refreshed — clear stored selections to reset everything to default
+		['basic', 'premium', 'luxury'].forEach(pkg => {
+			localStorage.removeItem('items_room_' + pkg);
+			localStorage.removeItem('deleted_items_' + pkg);
+		});
+		localStorage.removeItem('active_pkg');
+		localStorage.removeItem('roomPkg');
+		localStorage.removeItem('booted_premium_v1');
+	}
+
+	// Local State Initialization
+	let currentPkgKey = localStorage.getItem('active_pkg') || 'premium';
+
+	function loadStateForPackage(pkgKey) {
+		const savedItems = localStorage.getItem('items_room_' + pkgKey);
+		const savedDeleted = localStorage.getItem('deleted_items_' + pkgKey);
+
+		const items = savedItems ? JSON.parse(savedItems) : JSON.parse(JSON.stringify(packageSeeds[pkgKey]));
+		const deleted = savedDeleted ? JSON.parse(savedDeleted) : (pkgKey !== '' ? JSON.parse(JSON.stringify(addableExtraItems)) : []);
+
+		return { items, deleted };
+	}
+
+	const pkgState = loadStateForPackage(currentPkgKey);
+
+	const state = {
+		items: pkgState.items,
+		deleted: pkgState.deleted,
+		gstPct: 18,
+		baseDiscountPct: 0,
+		roomPkg: JSON.parse(localStorage.getItem('roomPkg') || 'null') || {}
+	};
+
+	if(!localStorage.getItem('booted_premium_v1')) {
+		rooms.forEach(r => state.roomPkg[r.key] = currentPkgKey);
+		localStorage.setItem('roomPkg', JSON.stringify(state.roomPkg));
+		localStorage.setItem('booted_premium_v1', '1');
+	}
+
+	function isUniformPackage() {
+		const vals = Object.values(state.roomPkg);
+		if(vals.length === 0) return null;
+		const allSame = vals.every(v => v === vals[0]);
+		return allSame ? vals[0] : null;
+	}
+
+	function effectiveDiscountPct() {
+		const uni = isUniformPackage();
+		return state.baseDiscountPct + (uni ? (packages[uni]?.extraDiscount || 0) : 0);
+	}
+
+	function updateBanner() {
+		const uni = isUniformPackage();
+		$('#selectedPackage').textContent = uni ? packages[uni].label : 'Custom Mix';
+		$$('.pkg-card').forEach(c => c.classList.toggle('active', !!uni && c.dataset.pkg === uni));
+		$$('.usePkg').forEach(btn => btn.classList.toggle('selected', !!uni && btn.dataset.pick === uni));
+	}
+
+	// Read-only grouped rendering
+	function renderReadOnly() {
+		const roomsOrder = rooms.map(r => r.key);
+		const byRoom = {};
+		roomsOrder.forEach(r => byRoom[r] = []);
+		state.items.forEach(it => (byRoom[it.room || 'general'] || (byRoom['general'] = [])).push(it));
+		const cont = $('#roContainer');
+		if (!cont) return;
+		cont.innerHTML = '';
+		let sectionSubtotal = 0;
+
+		roomsOrder.forEach(key => {
+			const roomObj = rooms.find(r => r.key === key);
+			const label = roomObj ? roomObj.label : key;
+			const list = byRoom[key];
+			if(!list || list.length === 0) return;
+			
+			const header = el('div', 'room-header');
+			const labelSpan = document.createElement('span');
+			labelSpan.textContent = label;
+			header.appendChild(labelSpan);
+			cont.appendChild(header);
+
+			let roomSubtotal = 0;
+			list.forEach(row => {
+				const amount = Number(row.qty || 0) * Number(row.rate || 0);
+				roomSubtotal += amount;
+				
+				const showDelete = !!row.isRestored;
+				const deleteBtnHtml = showDelete 
+					? `<button class="btn ghost btn-remove" data-remove="${row.id}"><span>Remove</span></button>` 
+					: '';
+
+				const rowEl = el('div', 'cost-row');
+				rowEl.innerHTML = `
+<div>${row.name}</div>
+<div class="money">₹${Math.round(amount).toLocaleString('en-IN')}</div>
+<div style="text-align: right;">${deleteBtnHtml}</div>`;
+
+				if (showDelete) {
+					const rmBtn = rowEl.querySelector('[data-remove]');
+					if (rmBtn) {
+						rmBtn.addEventListener('click', (e) => {
+							const rid = e.currentTarget.getAttribute('data-remove');
+							const idx = state.items.findIndex(x => x.id === rid);
+							if(idx >= 0) {
+								const [removed] = state.items.splice(idx, 1);
+								state.deleted = state.deleted || [];
+								state.deleted.push(removed);
+								persist();
+								renderReadOnly();
+								compute();
+								renderPackagePrices();
+								renderRemoved();
+								showToast('Item removed');
+							}
+						});
+					}
+				}
+				cont.appendChild(rowEl);
+			});
+
+			sectionSubtotal += roomSubtotal;
+			const sub = el('div', 'room-subtotal');
+			sub.innerHTML = `<div style="min-width:240px; text-align:right"><span>Subtotal —:</span> <span class="money">₹${Math.round(roomSubtotal).toLocaleString('en-IN')}</span></div>`;
+			cont.appendChild(sub);
+		});
+
+		// Section totals
+		$('#sectionSubtotal').textContent = money(sectionSubtotal);
+		const disc = sectionSubtotal * (effectiveDiscountPct() / 100);
+		$('#sectionDiscount').textContent = money(disc);
+		const afterDisc = sectionSubtotal - disc;
+		const grand = afterDisc;
+		$('#sectionGrand').textContent = money(grand);
+	}
+
+	function compute() {
+		let subtotal = 0;
+		state.items.forEach(row => {
+			subtotal += Number(row.qty || 0) * Number(row.rate || 0);
+		});
+		const disc = subtotal * (effectiveDiscountPct() / 100);
+		const afterDisc = subtotal - disc;
+		
+		const grand = afterDisc;
+
+		if ($('#kpi-subtotal')) $('#kpi-subtotal').textContent = money(disc);
+		if ($('#kpi-grand')) $('#kpi-grand').textContent = money(grand);
+	}
+
+	function persist() {
+		localStorage.setItem('active_pkg', currentPkgKey);
+		localStorage.setItem('roomPkg', JSON.stringify(state.roomPkg));
+		localStorage.setItem('items_room_' + currentPkgKey, JSON.stringify(state.items));
+		localStorage.setItem('deleted_items_' + currentPkgKey, JSON.stringify(state.deleted || []));
+	}
+
+	function getPackageTotals(pkgKey) {
+		const savedItems = localStorage.getItem('items_room_' + pkgKey);
+		const itemsToCalculate = savedItems ? JSON.parse(savedItems) : packageSeeds[pkgKey] || [];
+		
+		const sub = itemsToCalculate.reduce((acc, item) => acc + (Number(item.qty || 0) * Number(item.rate || 0)), 0);
+		const discountPct = packages[pkgKey].extraDiscount;
+		const disc = sub * (discountPct / 100);
+		const afterDisc = sub - disc;
+		//const gst = afterDisc * (18 / 100);
+		return { sub, disc, grand: afterDisc, discountPct };
+	}
+
+	function renderPackagePrices() {
+		const activePkg = isUniformPackage();
+
+		['basic', 'premium', 'luxury'].forEach(k => {
+			const p = getPackageTotals(k);
+			const priceEl = document.getElementById('price-' + k);
+			if (priceEl) priceEl.textContent = money(p.grand);
+
+			const tagEl = document.getElementById('tag-' + k);
+			if (tagEl) tagEl.textContent = `Includes ${packages[k].extraDiscount}% package discount`;
+
+			const deltaEl = document.getElementById('delta-' + k);
+			if (deltaEl) {
+				if (activePkg === k) {
+					deltaEl.className = 'delta good';
+					deltaEl.textContent = '✓ Active Selection';
+				} else {
+					deltaEl.className = '';
+					deltaEl.textContent = '';
+				}
+			}
+		});
+	}
+
+	function applyPackage(key) {
+		currentPkgKey = key;
+		rooms.forEach(r => state.roomPkg[r.key] = key);
+
+		// Switch state to stored additions for target package or defaults
+		const pkgData = loadStateForPackage(key);
+		state.items = pkgData.items;
+		state.deleted = pkgData.deleted;
+
+		persist();
+		renderReadOnly();
+		compute();
+		renderPackagePrices();
+		updateBanner();
+		renderRemoved();
+	}
+
+	function bindUsePkg() {
+		$$('.usePkg').forEach(btn => btn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			applyPackage(btn.dataset.pick);
+		}));
+
+		$$('.pkg-card').forEach(card => {
+			card.addEventListener('click', e => {
+				if(e.target.closest('.usePkg') || e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+				applyPackage(card.dataset.pkg);
+			});
+		});
+
+		const modal = $('#packageModal');
+		const cancelBtn = $('#modalCancel');
+
+		if(cancelBtn && modal) {
+			cancelBtn.addEventListener('click', () => {
+				modal.classList.remove('open');
+			});
+		}
+
+		if(modal) {
+			modal.addEventListener('click', (e) => {
+				if(e.target === modal) modal.classList.remove('open');
+			});
+		}
+
+		$$('[data-select-pkg]').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const pkgKey = btn.getAttribute('data-select-pkg');
+				applyPackage(pkgKey);
+				modal.classList.remove('open');
+				showToast(`Switched to ${packages[pkgKey].label} Package`);
+			});
+		});
+
+		const addAllBtn = document.getElementById('addAllBtn');
+		if (addAllBtn) {
+			addAllBtn.addEventListener('click', () => {
+				if (!state.deleted || state.deleted.length === 0) return;
+				state.deleted.forEach(item => {
+					item.isRestored = true;
+					state.items.push(item);
+				});
+				state.deleted = [];
+				persist();
+				renderReadOnly();
+				compute();
+				renderPackagePrices();
+				renderRemoved();
+				showToast('All extra items added to quotation');
+			});
+		}
+	}
+
+	function renderRemoved() {
+		const wrap = document.getElementById('removedWrap');
+		const addAllBtn = document.getElementById('addAllBtn');
+		if(!wrap) return;
+		const list = state.deleted || [];
+
+		if (addAllBtn) {
+			addAllBtn.style.display = list.length > 0 ? 'inline-flex' : 'none';
+		}
+
+		if(list.length === 0) {
+			wrap.innerHTML = '<div class="tag">No extra items available.</div>';
+			return;
+		}
+		let removedTotal = 0;
+		const grid = document.createElement('div');
+		grid.className = 'grid';
+		list.forEach(it => {
+		const itemAmount = Number(it.qty || 1) * Number(it.rate || 0);
+			const card = document.createElement('div');
+			card.className = 'card card-pad';
+			card.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; gap:10px">
+<div><strong>${it.name}</strong></div>
+<div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px">
+	<button class="btn" data-restore="${it.id}">Add</button>
+	<div class="money tag" style="font-size:13px">₹${Math.round(itemAmount).toLocaleString('en-IN')}</div>
+</div>
+</div>`;
+			card.querySelector('[data-restore]').addEventListener('click', () => {
+				const i = (state.deleted || []).findIndex(x => x.id === it.id);
+				if(i >= 0) {
+					const [rec] = state.deleted.splice(i, 1);
+					rec.isRestored = true;
+					state.items.push(rec);
+					persist();
+					renderReadOnly();
+					compute();
+					renderPackagePrices();
+					renderRemoved();
+					showToast('Item added to quotation');
+				}
+			});
+			grid.appendChild(card);
+			removedTotal += (Number(it.qty || 1) * Number(it.rate || 0));
+		});
+		wrap.innerHTML = '';
+		wrap.appendChild(grid);
+		const totalBar = document.createElement('div');
+		totalBar.className = 'room-subtotal';
+		totalBar.innerHTML = `<div style="min-width:240px; text-align:right"><span>Available Items Total:</span> <span class="money">₹${Math.round(removedTotal).toLocaleString('en-IN')}</span></div>`;
+		wrap.appendChild(totalBar);
+	}
+	function toggleMilestone(element) {
+      const isAlreadyActive = element.classList.contains('active');
+      
+      // Close all active items
+      document.querySelectorAll('.milestone-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      // Toggle current item
+      if (!isAlreadyActive) {
+        element.classList.add('active');
+      }
+    }
+
+	// Initialization Sequence
+	renderReadOnly();
+	compute();
+	renderPackagePrices();
+	bindUsePkg();
+	updateBanner();
+	renderRemoved();
+	</script>
+</body>
+
+</html>
