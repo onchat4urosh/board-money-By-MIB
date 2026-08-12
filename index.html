@@ -210,7 +210,6 @@
 	
 	.tag {
 		font-size: 12px;
-		color: var(--muted)
 	}
 	
 	.rise {
@@ -576,8 +575,7 @@
 	}
 	.milestone-card {
       width: 100%;
-      max-width: 450px;
-      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+	  background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
       border: 1px solid #1e293b;
       border-radius: 16px;
       padding: 20px 16px;
@@ -959,19 +957,19 @@
 		font-size: 14px;
 	}
 	
-		.payment-header-grid,
-		.payment-row-interactive {
-			grid-template-columns: 30px 50px 1fr auto;
-			gap: 6px;
-			padding: 12px 10px;
-			font-size: 12px;
-		}
-				.payment-pct-badge {
-			font-size: 11px;
-			padding: 2px 5px;
-			}
+	.payment-header-grid,
+	.payment-row-interactive {
+		grid-template-columns: 30px 50px 1fr auto;
+		gap: 6px;
+		padding: 12px 10px;
+		font-size: 12px;
+	}
+	.payment-pct-badge {
+		font-size: 11px;
+		padding: 2px 5px;
+	}
 			
-
+	
 	</style>
 </head>
 
@@ -998,7 +996,7 @@
 						<div class="delta" id="delta-basic">—</div>
 						<div class="tag" id="tag-basic">Includes 5% package discount</div>
 						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
-							<button class="btn ghost usePkg" data-pick="basic">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+							<button class="btn ghost usePkg" data-pick="basic">Use this package</button> <a class="btn" href="#costing" style="display: none;" id="basic-details">View details</a> </div>
 					</div>
 				</div>
 				<div class="card pkg-card" data-pkg="premium"> 
@@ -1014,7 +1012,7 @@
 						<div class="delta" id="delta-premium">—</div>
 						<div class="tag" id="tag-premium">Includes 10% package discount</div>
 						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
-							<button class="btn usePkg" data-pick="premium">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+							<button class="btn usePkg" data-pick="premium">Use this package</button> <a class="btn" href="#costing" style="display: none;" id="premium-details">View details</a> </div>
 					</div>
 				</div>
 				<div class="card pkg-card" data-pkg="luxury"> 
@@ -1030,7 +1028,7 @@
 						<div class="delta" id="delta-luxury">—</div>
 						<div class="tag" id="tag-luxury">Includes 20% package discount</div>
 						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
-							<button class="btn ghost usePkg" data-pick="luxury">Use this package</button> <a class="btn" href="#costing">View details</a> </div>
+							<button class="btn ghost usePkg" data-pick="luxury">Use this package</button> <a class="btn" href="#costing" style="display: none;" id="luxury-details">View details</a> </div>
 					</div>
 				</div>
 			</div>
@@ -1114,7 +1112,7 @@
 						  <span>Stage 1</span>
 						</div>
 						<p class="hint-text">
-						  Initial design freezing, 3D render sign-off, and raw material procurement initiated at factory.
+						  Initial design freezing, 3D render sign-off, Material Selection.
 						</p>
 					  </div>
 					</div>
@@ -1125,7 +1123,7 @@
 					<div class="milestone-row">
 					  <span class="milestone-no">2</span>
 					  <div class="milestone-pct"><span class="pct-badge">40%</span></div>
-					  <span class="milestone-title">Material Procurement & Factory Cutting</span>
+					  <span class="milestone-title">Material Procurement & Site Execution</span>
 					  <span class="arrow-icon">&#9660;</span>
 					</div>
 					<div class="hint-window">
@@ -1135,7 +1133,7 @@
 						  <span>Stage 2</span>
 						</div>
 						<p class="hint-text">
-						  Precision panel cutting, edge-banding, and quality check of raw materials completed on factory floor.
+						  After Procument, Material is sent to site for Execution. Carcus Cutting and Fixing is initiated.
 						</p>
 					  </div>
 					</div>
@@ -1145,8 +1143,8 @@
 				  <div class="milestone-item" onclick="toggleMilestone(this)">
 					<div class="milestone-row">
 					  <span class="milestone-no">3</span>
-					  <div class="milestone-pct"><span class="pct-badge">35%</span></div>
-					  <span class="milestone-title">Carcass Completion & Site Dispatch</span>
+					  <div class="milestone-pct"><span class="pct-badge">40%</span></div>
+					  <span class="milestone-title">Carcass Completion & Shutter Making</span>
 					  <span class="arrow-icon">&#9660;</span>
 					</div>
 					<div class="hint-window">
@@ -1156,7 +1154,7 @@
 						  <span>Stage 3</span>
 						</div>
 						<p class="hint-text">
-						  Pre-assembly of modular carcasses, flat-pack packaging, and dispatching units to job site.
+						  Order Placement for Outer Laminate and shutter Making as per the Design.
 						</p>
 					  </div>
 					</div>
@@ -1166,7 +1164,7 @@
 				  <div class="milestone-item" onclick="toggleMilestone(this)">
 					<div class="milestone-row">
 					  <span class="milestone-no">4</span>
-					  <div class="milestone-pct"><span class="pct-badge">15%</span></div>
+					  <div class="milestone-pct"><span class="pct-badge">10%</span></div>
 					  <span class="milestone-title">Hardware, Shutter Fixing & Final Handover</span>
 					  <span class="arrow-icon">&#9660;</span>
 					</div>
@@ -1886,6 +1884,22 @@
 
 	function bindUsePkg() {
 		$$('.usePkg').forEach(btn => btn.addEventListener('click', (e) => {
+			console.log(btn.dataset.pick);
+			if(btn.dataset.pick=='basic'){
+				document.getElementById('basic-details').style.display = 'block'; 
+				document.getElementById('luxury-details').style.display = 'none';
+				document.getElementById('premium-details').style.display = 'none';
+			}
+			if(btn.dataset.pick=='premium'){
+				document.getElementById('basic-details').style.display = 'none'; 
+				document.getElementById('luxury-details').style.display = 'none';
+				document.getElementById('premium-details').style.display = 'block';
+			}
+			if(btn.dataset.pick=='luxury'){
+				document.getElementById('basic-details').style.display = 'none'; 
+				document.getElementById('luxury-details').style.display = 'block';
+				document.getElementById('premium-details').style.display = 'none';
+			}
 			e.stopPropagation();
 			applyPackage(btn.dataset.pick);
 		}));
