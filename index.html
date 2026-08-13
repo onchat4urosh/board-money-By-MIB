@@ -7,7 +7,7 @@
 	<title>Interior Costing — Read-only + Packages + Notes & Why</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<!-- Canvas Confetti Library for Congratulations Animation -->
 	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -231,7 +231,7 @@
 	
 	@media(min-width:640px) {
 		.kpis {
-			grid-template-columns: repeat(3, 1fr)
+			grid-template-columns: repeat(2, 1fr)
 		}
 	}
 	
@@ -323,26 +323,6 @@
 		border-radius: 8px;
 	}
 
-	.payment-header,
-	.payment-row {
-		display: grid;
-		grid-template-columns: 80px 1fr;
-		gap: 12px;
-		padding: 12px;
-		align-items: center;
-		border-bottom: 1px dashed rgba(255, 255, 255, .08);
-	}
-	.payment-header {
-		font-weight: 700;
-		background: rgba(14, 20, 48, .85);
-		border-bottom: 1px solid rgba(255, 255, 255, .12);
-		border-radius: 10px;
-	}
-	.payment-no {
-		font-weight: 700;
-		color: var(--brand);
-	}
-
 	.pkg-grid {
 		display: grid;
 		gap: 14px
@@ -401,7 +381,6 @@
 		box-shadow: 0 0 12px var(--basic-glow);
 	}
 
-	/* Premium Card Default & Selected (Silver Tone) */
 	.pkg-card[data-pkg="premium"] {
 		border-color: rgba(226, 232, 240, 0.25);
 	}
@@ -420,7 +399,6 @@
 		box-shadow: 0 0 12px var(--premium-glow);
 	}
 
-	/* Luxury Card Default & Selected (Gold Tone) */
 	.pkg-card[data-pkg="luxury"] {
 		border-color: rgba(255, 215, 0, 0.3);
 	}
@@ -439,7 +417,6 @@
 		box-shadow: 0 0 12px var(--luxury-glow);
 	}
 
-	/* Active badge styling in costing section header */
 	.badge-pkg.basic-theme {
 		background: rgba(139, 94, 60, 0.25);
 		border-color: var(--basic-color);
@@ -466,7 +443,6 @@
 	.pkg-card[data-pkg="premium"] .delta.good { color: #e2e8f0; }
 	.pkg-card[data-pkg="luxury"] .delta.good { color: #ffd700; }
 	
-		
 	.modal-overlay {
 		position: fixed;
 		top: 0;
@@ -492,9 +468,9 @@
 		border: 1px solid rgba(255, 255, 255, .15);
 		border-radius: var(--radius);
 		padding: 24px;
-		max-width: 420px;
+		max-width: 450px;
 		width: 90%;
-		text-align: center;
+		text-align: left;
 		box-shadow: var(--shadow);
 	}
 	.modal-options {
@@ -565,410 +541,8 @@
 			font-size: 15px;
 			gap: 10px;
 		}
-
-		.payment-header,
-		.payment-row {
-			grid-template-columns: 40px 1fr;
-			gap: 8px;
-			padding: 8px 4px;
-		}
-	}
-	.milestone-card {
-      width: 100%;
-	  background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
-      border: 1px solid #1e293b;
-      border-radius: 16px;
-      padding: 20px 16px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-    }
-	.milestone-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .milestone-item {
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      background-color: rgba(15, 23, 42, 0.6);
-      overflow: hidden;
-      transition: all 0.25s ease;
-    }
-
-    .milestone-item.active {
-      border-color: #3b82f6;
-      background-color: rgba(30, 58, 138, 0.25);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-    }
-
-    /* Interactive Row Header */
-    .milestone-row {
-      display: flex;
-      align-items: center;
-      padding: 14px 12px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .milestone-no {
-      width: 10%;
-      font-weight: 700;
-      font-size: 15px;
-      color: #60a5fa;
-    }
-
-    .milestone-pct {
-      width: 18%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .pct-badge {
-      background: #2e1065;
-      color: #c084fc;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 12px;
-      border: 1px solid #581c87;
-    }
-
-    .milestone-title {
-      width: 64%;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 1.3;
-      color: #f1f5f9;
-      padding-left: 8px;
-    }
-
-    .arrow-icon {
-      width: 8%;
-      text-align: right;
-      color: #64748b;
-      font-size: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    .milestone-item.active .arrow-icon {
-      transform: rotate(180deg);
-      color: #60a5fa;
-    }
-
-    /* Embedded Hint Section */
-    .hint-window {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
-      background-color: rgba(15, 23, 42, 0.8);
-      border-top: 0px solid transparent;
-    }
-	.card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1e2d42;
-      margin-bottom: 12px;
-      color: #64748b;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    .card-header .col-no { width: 10%; }
-    .card-header .col-pct { width: 18%; text-align: center; }
-    .card-header .col-stage { width: 72%; }
-    .milestone-item.active .hint-window {
-      max-height: 200px; /* Expand transition */
-      border-top: 1px dashed #1e3a8a;
-      transition: max-height 0.3s ease-in-out;
-    }
-
-    .hint-content {
-      padding: 12px;
-    }
-
-    .hint-header {
-      display: flex;
-      justify-content: space-between;
-      color: #f59e0b;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .hint-text {
-      color: #94a3b8;
-      font-size: 12.5px;
-      line-height: 1.45;
-    }
-	
-	/* WHY CHOOSE US & JOURNEY TIMELINE */
-	.why-card {
-		position: relative;
-		padding: 24px;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		background: linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(17, 22, 43, 0.8) 100%);
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		border-radius: 20px;
-		transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
-	.why-card:hover {
-		transform: translateY(-6px);
-		border-color: rgba(124, 58, 237, 0.4);
-		box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
-	}
-
-	.why-icon {
-		width: 48px;
-		height: 48px;
-		border-radius: 12px;
-		background: linear-gradient(135deg, rgba(74, 168, 255, 0.2), rgba(124, 58, 237, 0.2));
-		border: 1px solid rgba(255, 255, 255, 0.15);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 22px;
-		margin-bottom: 14px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	}
-
-	.why-title {
-		font-size: 18px;
-		font-weight: 700;
-		margin: 0 0 8px;
-	}
-		.why-desc {
-		font-size: 13.5px;
-		color: var(--muted);
-		line-height: 1.6;
-		margin: 0;
-	}
-
-	.process-container {
-		position: relative;
-		margin-top: 20px;
-	}
-	
-	.process-track {
-		display: none;
-	}
-	
-	@media(min-width: 940px) {
-		.process-track {
-			display: block;
-			position: absolute;
-			top: 50px;
-			left: 10%;
-			right: 10%;
-			height: 3px;
-			background: rgba(255, 255, 255, 0.1);
-			z-index: 1;
-			border-radius: 4px;
-			overflow: hidden;
-		}
-
-		.process-progress-bar {
-			height: 100%;
-			width: 0%;
-			background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--gold));
-			box-shadow: 0 0 12px var(--brand);
-			transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-	}
-		.step-card {
-			position: relative;
-			z-index: 2;
-			background: rgba(17, 22, 43, 0.85);
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			border-radius: 20px;
-			padding: 22px;
-			display: flex;
-			flex-direction: column;
-			height: 100%;
-			backdrop-filter: blur(16px);
-			transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-			opacity: 0.35;
-			filter: grayscale(0.8);
-			transform: scale(0.97);
-		}
-		
-	.step-card.active-step {
-		opacity: 1;
-		filter: grayscale(0);
-		transform: scale(1.02) translateY(-4px);
-		border-color: rgba(74, 168, 255, 0.6);
-		box-shadow: 0 20px 40px rgba(74, 168, 255, 0.2);
-	}
-	
-	.step-card.completed-step {
-		opacity: 0.85;
-		filter: grayscale(0);
-		transform: scale(1);
-		border-color: rgba(34, 197, 94, 0.4);
-	}
-	
-	.step-card.collapsed-step {
-		padding: 14px 18px;
-		cursor: pointer;
-		border-color: rgba(34, 197, 94, 0.4);
-		background: rgba(14, 20, 48, 0.7);
-		opacity: 0.9;
-		filter: grayscale(0);
-		transform: scale(1);
-	}
-		.step-card.collapsed-step .step-content-collapsible {
-		display: none !important;
-	}
-	
-	.step-card.collapsed-step .step-node {
-		width: 32px;
-		height: 32px;
-		font-size: 13px;
-		margin-bottom: 0;
-	}
-	
-	.step-card.collapsed-step .collapsed-header {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-	}
-	
-	.step-card.collapsed-step .step-title {
-		font-size: 15px;
-		margin: 0;
-	}
-
-	.step-card.collapsed-step:hover {
-		border-color: var(--brand);
-		background: rgba(17, 22, 43, 0.95);
-	}
-
-	.step-node {
-		width: 44px;
-		height: 44px;
-		border-radius: 50%;
-		background: #0e1430;
-		border: 2px solid rgba(255, 255, 255, 0.2);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: 800;
-		font-size: 15px;
-		color: #fff;
-		margin-bottom: 16px;
-		position: relative;
-		transition: all 0.4s ease;
-		flex-shrink: 0;
-	}
-
-	.step-card.active-step .step-node {
-		border-color: var(--brand);
-		box-shadow: 0 0 20px rgba(74, 168, 255, 0.6);
-		color: var(--brand);
-		background: #11183c;
-	}
-
-	.step-card.completed-step .step-node,
-	.step-card.collapsed-step .step-node {
-		border-color: var(--good);
-		box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
-		color: var(--good);
-	}
-
-	.step-tag {
-		font-size: 11px;
-		font-weight: 700;
-		letter-spacing: 1px;
-		text-transform: uppercase;
-		color: var(--brand);
-		margin-bottom: 6px;
-	}
-
-	.step-title {
-		font-size: 17px;
-		font-weight: 700;
-		margin: 0 0 8px;
-		color: #fff;
-	}
-
-	.step-desc {
-	color: var(--muted);
-		line-height: 1.55;
-		margin: 0 0 14px;
-		flex-grow: 1;
-	}
-		.step-time {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		padding: 4px 10px;
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.04);
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		font-size: 11px;
-		color: var(--muted);
-		width: fit-content;
-		margin-bottom: 14px;
-	}
-
-	.step-actions {
-		margin-top: auto;
-		padding-top: 10px;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		display: flex;
-		gap: 8px;
-	}
-
-	.congrats-card {
-		display: none;
-		margin-top: 24px;
-		padding: 24px;
-		border-radius: 20px;
-		background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(124, 58, 237, 0.15));
-		border: 1px solid var(--gold);
-		text-align: center;
-		box-shadow: 0 0 30px var(--gold-glow);
-		animation: popup 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
-
-	@keyframes popup {
-		0% { opacity: 0; transform: scale(0.9); }
-		100% { opacity: 1; transform: scale(1); }
-	}
-
-	.congrats-card h3 {
-		font-family: Poppins;
-		font-size: 24px;
-		margin: 0 0 8px;
-		color: var(--gold);
-	}
-
-	.congrats-card p {
-		margin: 0 0 16px;
-		color: #fff;
-		font-size: 14px;
-	}
-	
-	.payment-header-grid,
-	.payment-row-interactive {
-		grid-template-columns: 30px 50px 1fr auto;
-		gap: 6px;
-		padding: 12px 10px;
-		font-size: 12px;
-	}
-	.payment-pct-badge {
-		font-size: 11px;
-		padding: 2px 5px;
-	}
-    /* Dynamic Badge Styling to match Selected Buttons */
 .badge-pkg.basic-theme {
 	background: var(--basic-color);
 	border-color: #a6734c;
@@ -991,8 +565,541 @@
 	box-shadow: 0 0 12px var(--luxury-glow);
 	font-weight: 700;
 }
-		
-	
+
+	/* EXECUTION SECTION */
+	.execution-payment-card {
+		border-radius: var(--radius);
+		background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+		border: 1px solid rgba(255, 255, 255, .08);
+		box-shadow: var(--shadow);
+		padding: 20px;
+		margin-top: 14px;
+	}
+
+	.execution-payment-card .card-header-plan h2 {
+		font-family: Poppins, Inter;
+		margin: 0 0 4px 0;
+		font-size: 1.25rem;
+		color: var(--text);
+	}
+
+	.execution-payment-card .card-header-plan p {
+		margin: 0 0 16px 0;
+		color: var(--muted);
+		font-size: 0.875rem;
+	}
+
+	.step-nav {
+		display: flex;
+		gap: 8px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		padding-bottom: 12px;
+		flex-wrap: wrap;
+	}
+
+	.nav-tab {
+		flex: 1;
+		min-width: 120px;
+		padding: 8px 10px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(14, 20, 48, 0.6);
+		border-radius: 8px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--muted);
+		cursor: pointer;
+		transition: all 0.2s ease;
+		text-align: center;
+	}
+
+	.nav-tab:hover {
+		border-color: var(--brand);
+		color: var(--text);
+	}
+
+	.nav-tab.active {
+		background: linear-gradient(90deg, var(--brand), var(--brand-2));
+		color: #ffffff;
+		border-color: transparent;
+		box-shadow: 0 0 12px rgba(74, 168, 255, 0.3);
+	}
+
+	.step-panel {
+		display: none;
+		padding: 20px 0;
+	}
+
+	.step-panel.active {
+		display: block;
+	}
+
+	.step-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 16px;
+		align-items: center;
+	}
+
+	.step-badge {
+		display: inline-block;
+		background: rgba(124, 58, 237, 0.2);
+		border: 1px solid rgba(124, 58, 237, 0.4);
+		color: var(--brand);
+		font-size: 0.75rem;
+		font-weight: 700;
+		padding: 2px 8px;
+		border-radius: 4px;
+		margin-bottom: 8px;
+	}
+
+	.step-info h3 {
+		margin: 0 0 8px 0;
+		font-size: 1.1rem;
+		color: var(--text);
+	}
+
+	.step-info p {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--muted);
+		line-height: 1.45;
+	}
+
+	.payment-card {
+		background: rgba(15, 23, 42, 0.7);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-left: 4px solid var(--brand);
+		padding: 14px;
+		border-radius: 8px;
+	}
+
+	.milestone-label {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		color: var(--muted);
+		font-weight: 700;
+		display: block;
+	}
+
+	.payment-amount {
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--gold);
+		margin: 4px 0;
+	}
+
+	.payment-card p {
+		margin: 0;
+		font-size: 0.8rem;
+		color: var(--muted);
+		line-height: 1.3;
+	}
+
+	.card-footer-plan {
+		display: flex;
+		justify-content: space-between;
+		padding-top: 12px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.why-us-accordion {
+		margin-top: 16px;
+		border-top: 1px dashed rgba(255, 255, 255, 0.15);
+		padding-top: 12px;
+	}
+
+	.accordion-toggle {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background: transparent;
+		border: none;
+		padding: 6px 0;
+		font-weight: 600;
+		color: var(--text);
+		font-size: 0.9rem;
+		cursor: pointer;
+	}
+
+	.accordion-content {
+		display: none;
+		margin-top: 10px;
+	}
+
+	.accordion-content.open {
+		display: block;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(1fr);
+		gap: 12px;
+	}
+
+	.feature-item {
+		background: rgba(14, 20, 48, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		padding: 12px;
+		border-radius: 10px;
+		font-size: 0.8rem;
+	}
+
+	.feature-item strong {
+		display: block;
+		color: var(--brand);
+		margin-bottom: 4px;
+	}
+
+	.feature-item p {
+		margin: 0;
+		color: var(--muted);
+		line-height: 1.3;
+	}
+
+	/* INTERACTIVE COMPLETED PROJECTS SECTION */
+	.projects-section {
+	  width: 100%;
+	  margin: 0 auto;
+	  padding: 20px 0;
+	}
+
+	.section-header {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin-bottom: 16px;
+	  flex-wrap: wrap;
+	  gap: 12px;
+	}
+
+	/* Category Filter Tabs */
+	.project-filters {
+		display: flex;
+		gap: 8px;
+		overflow-x: auto;
+		padding-bottom: 4px;
+		scrollbar-width: none;
+	}
+	.project-filters::-webkit-scrollbar { display: none; }
+
+	.filter-btn {
+		padding: 6px 14px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.03);
+		color: var(--muted);
+		font-size: 13px;
+		font-weight: 500;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: all 0.25s ease;
+	}
+
+	.filter-btn:hover {
+		color: #fff;
+		border-color: rgba(255, 255, 255, 0.3);
+	}
+
+	.filter-btn.active {
+		background: linear-gradient(90deg, var(--brand), var(--brand-2));
+		color: #fff;
+		border-color: transparent;
+		box-shadow: 0 0 12px rgba(74, 168, 255, 0.3);
+	}
+
+	.scroll-controls {
+	  display: flex;
+	  gap: 8px;
+	}
+
+	.scroll-controls button {
+	  background: rgba(255, 255, 255, 0.08);
+	  color: #fff;
+	  border: 1px solid rgba(255, 255, 255, 0.15);
+	  width: 38px;
+	  height: 38px;
+	  border-radius: 50%;
+	  cursor: pointer;
+	  font-size: 16px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  transition: all 0.2s ease;
+	}
+
+	.scroll-controls button:hover {
+	  background: var(--brand);
+	  border-color: var(--brand);
+	  transform: scale(1.05);
+	}
+
+	.scroll-controls button:active {
+	  transform: scale(0.95);
+	}
+
+	.projects-container {
+	  display: flex;
+	  gap: 18px;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  padding: 8px 4px 16px;
+	  scrollbar-width: none;
+	  -ms-overflow-style: none;
+	}
+
+	.projects-container::-webkit-scrollbar {
+	  display: none;
+	}
+
+	/* Interactive Project Cards */
+	.project-card {
+	  flex: 0 0 310px;
+	  border-radius: 16px;
+	  overflow: hidden;
+	  background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
+	  border: 1px solid rgba(255, 255, 255, 0.1);
+	  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+	  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+	  position: relative;
+	  cursor: pointer;
+	}
+
+	.project-card:hover {
+	  transform: translateY(-6px);
+	  border-color: rgba(74, 168, 255, 0.5);
+	  box-shadow: 0 15px 35px rgba(74, 168, 255, 0.2);
+	}
+
+	.project-img-wrap {
+		position: relative;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+	}
+
+	.project-card img {
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover;
+	  display: block;
+	  transition: transform 0.5s ease;
+	}
+
+	.project-card:hover img {
+		transform: scale(1.08);
+	}
+
+	.like-btn {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background: rgba(7, 12, 28, 0.65);
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		padding: 5px 10px;
+		color: #fff;
+		font-size: 12px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		z-index: 2;
+	}
+
+	.like-btn:hover {
+		background: rgba(239, 68, 68, 0.2);
+		border-color: rgba(239, 68, 68, 0.5);
+	}
+
+	.like-btn.liked {
+		color: #ef4444;
+		border-color: rgba(239, 68, 68, 0.6);
+		background: rgba(239, 68, 68, 0.2);
+	}
+
+	.overlay-badge {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		background: rgba(7, 12, 28, 0.75);
+		backdrop-filter: blur(6px);
+		padding: 4px 10px;
+		border-radius: 6px;
+		font-size: 11px;
+		font-weight: 600;
+		color: var(--brand);
+		border: 1px solid rgba(74, 168, 255, 0.3);
+	}
+
+	/* LIGHTBOX MODAL STYLES */
+	.project-modal {
+		max-width: 650px;
+		text-align: left;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.project-modal-img {
+		width: 100%;
+		height: 280px;
+		object-fit: cover;
+	}
+
+	.project-modal-body {
+		padding: 20px;
+	}
+
+	.project-spec-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+		margin: 16px 0;
+		background: rgba(14, 20, 48, 0.6);
+		padding: 12px;
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.project-spec-item span {
+		display: block;
+		font-size: 11px;
+		color: var(--muted);
+		text-transform: uppercase;
+	}
+
+	.project-spec-item strong {
+		font-size: 13px;
+		color: #fff;
+	}
+
+	/* INTERACTIVE EXTRA ITEMS STYLES FROM FINAL HALF */
+	.extra-toolbar {
+		display: flex;
+		gap: 12px;
+		margin-bottom: 16px;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.extra-search-box { position: relative; flex: 1; min-width: 220px; }
+
+	.extra-search-input {
+		width: 100%;
+		padding: 10px 14px 10px 36px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		background: rgba(14, 20, 48, 0.6);
+		color: var(--text);
+		font-size: 13px;
+		outline: none;
+	}
+
+	.extra-search-icon {
+		position: absolute;
+		left: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 13px;
+		color: var(--muted);
+	}
+
+	.extra-filters { display: flex; gap: 6px; overflow-x: auto; }
+
+	.extra-filter-chip {
+		padding: 6px 14px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		background: rgba(255, 255, 255, 0.03);
+		color: var(--muted);
+		font-size: 12px;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.extra-filter-chip.active {
+		background: linear-gradient(90deg, var(--brand), var(--brand-2));
+		color: #fff;
+		border-color: transparent;
+	}
+
+	.extra-item-card {
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.02);
+		padding: 14px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		transition: all 0.2s ease;
+	}
+
+	.extra-item-card:hover {
+		border-color: rgba(74, 168, 255, 0.4);
+		transform: translateY(-2px);
+	}
+
+	.extra-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+	.extra-card-title { font-weight: 600; font-size: 14px; margin: 0; }
+
+	.extra-card-badge {
+		font-size: 10px;
+		padding: 2px 8px;
+		border-radius: 999px;
+		background: rgba(124, 58, 237, 0.2);
+		color: var(--brand);
+		border: 1px solid rgba(124, 58, 237, 0.3);
+		text-transform: uppercase;
+	}
+
+	.extra-card-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: auto;
+		padding-top: 8px;
+		border-top: 1px dashed rgba(255, 255, 255, 0.08);
+	}
+
+	.qty-stepper {
+		display: inline-flex;
+		align-items: center;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: 8px;
+		overflow: hidden;
+		background: rgba(14, 20, 48, 0.5);
+	}
+
+	.qty-btn {
+		background: transparent;
+		border: none;
+		color: var(--text);
+		width: 28px;
+		height: 28px;
+		cursor: pointer;
+		font-weight: 700;
+	}
+
+	.qty-input {
+		width: 32px;
+		text-align: center;
+		border: none;
+		background: transparent;
+		color: var(--text);
+		font-weight: 600;
+		font-size: 13px;
+	}
+
+	.info-btn {
+		background: transparent;
+		border: none;
+		color: var(--muted);
+		cursor: pointer;
+		font-size: 13px;
+	}
 	</style>
 </head>
 
@@ -1013,7 +1120,7 @@
 						<ul class="features">
 							<li>Entertainment/TV Unit</li>
 							<li>Wardrobes with Loft in All 3 Rooms</li>
-							<li>Kicthen Cabinet with Loft</li>
+							<li>Kitchen Cabinet with Loft</li>
 						</ul>
 						<div class="pkg-price" id="price-basic">₹—</div>
 						<div class="delta" id="delta-basic">—</div>
@@ -1028,14 +1135,14 @@
 						<div class="chip">Acrylic shutters, BWP in kitchen, Soft-close Hardware</div>
 						<ul class="features">
 							<li>Entertainment/TV Unit with Home Office</li>
-							<li>Kicthen with Acrylic Finish Shutters</li>
+							<li>Kitchen with Acrylic Finish Shutters</li>
 							<li>Wardrobes with Loft in All 3 Rooms & Study</li>
 						</ul>
 						<div class="pkg-price" id="price-premium">₹—</div>
 						<div class="delta" id="delta-premium">—</div>
 						<div class="tag" id="tag-premium">Includes 10% package discount</div>
 						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
-							<button class="btn usePkg" data-pick="premium">Use this package</button> <a class="btn" href="#costing" style="display: none;" id="premium-details">View details</a> </div>
+							<button class="btn usePkg" data-pick="premium">Use this package</button> <a class="btn" href="#costing" id="premium-details">View details</a> </div>
 					</div>
 				</div>
 				<div class="card pkg-card" data-pkg="luxury"> 
@@ -1056,6 +1163,7 @@
 				</div>
 			</div>
 		</section>
+
 		<!-- READ-ONLY GROUPED COSTING -->
 		<section id="costing" class="rise">
 			<div class="section-head">
@@ -1077,16 +1185,37 @@
 				</div>
 			</div>
 		</section>
-		<!-- Removed / Extra Items (Add Extra Items) -->
-		<section id="removed" class="rise">
+
+		<!-- ENHANCED INTERACTIVE EXTRA ITEMS SECTION -->
+		<section id="extra-section" class="rise">
 			<div class="section-head">
-				<h2>Add Extra Items</h2>
-				<button class="btn primary" id="addAllBtn">Add all</button>
+				<div>
+					<h2>Add Extra Items</h2>
+					<p class="muted" style="margin:4px 0 0 0">Customize your estimate with modular additions, ceiling designs, & loose furniture</p>
+				</div>
+				<button class="btn primary" id="addAllBtn">Add all visible</button>
 			</div>
-			<div class="card card-pad" id="removedWrap">
-				<div class="tag">No extra items available.</div>
+
+			<div class="card card-pad">
+				<!-- Search & Category Filters -->
+				<div class="extra-toolbar">
+					<div class="extra-search-box">
+						<span class="extra-search-icon">🔍</span>
+						<input type="text" id="extraSearchInput" class="extra-search-input" placeholder="Search extra items...">
+					</div>
+					<div class="extra-filters" id="extraCategoryFilters">
+						<button class="extra-filter-chip active" data-cat="all">All Items</button>
+						<button class="extra-filter-chip" data-cat="general">Ceiling & Lighting</button>
+						<button class="extra-filter-chip" data-cat="fabrication">Fabrication</button>
+						<button class="extra-filter-chip" data-cat="loose">Loose Furniture</button>
+					</div>
+				</div>
+
+				<!-- Extra Items Grid Container -->
+				<div id="removedWrap"></div>
 			</div>
 		</section>
+
 		<!-- KPIs -->
 		<section id="highlights" class="rise">
 			<div class="section-head">
@@ -1103,256 +1232,147 @@
 				</div>
 			</div>
 		</section>
-		<!-- Payment Terms -->
-		<section id="payment-terms" class="rise">
-			<div class="section-head">
-				<h2>Payment Terms</h2>
-				<p>Stage-wise milestone.</p>
-			</div>
-			<div class="milestone-card">
-				<!-- Header -->
-				<div class="card-header">
-				  <span class="col-no">NO</span>
-				  <span class="col-pct">%</span>
-				  <span class="col-stage">MILESTONE STAGE</span>
+
+		<!-- Execution & Payment Plan Interactive Section -->
+		<section id="execution-plan" class="rise">
+			<div class="execution-payment-card">
+			  <div class="card-header-plan">
+				<h2>4-Step Interior Execution & Payment Plan</h2>
+				<p>Track project progression alongside transparent payment milestones.</p>
+				<div class="step-nav" id="stepNav">
+				  <button class="nav-tab active" onclick="goToPlanStep(0)">1. Discovery</button>
+				  <button class="nav-tab" onclick="goToPlanStep(1)">2. Design & 3D</button>
+				  <button class="nav-tab" onclick="goToPlanStep(2)">3. Production</button>
+				  <button class="nav-tab" onclick="goToPlanStep(3)">4. Handover</button>
+				</div>
+			  </div>
+
+			  <div class="card-body">
+				<!-- Step 1 -->
+				<div class="step-panel active" data-step="0">
+				  <div class="step-grid">
+					<div class="step-info">
+					  <span class="step-badge">Stage 01</span>
+					  <h3>Discovery & Consultation</h3>
+					  <p>Initial meeting to map out spatial requirements, architectural preferences, and design vision to prepare your custom project blueprint.</p>
+					</div>
+					<div class="payment-card">
+					  <span class="milestone-label">Payment Milestone</span>
+					  <div class="payment-amount">10% Booking Fee</div>
+					  <p>Locks in your dedicated design team and initial site measurement schedule.</p>
+					</div>
+				  </div>
 				</div>
 
-				<!-- Interactive Items -->
-				<div class="milestone-list">
-
-				  <!-- Item 1 -->
-				  <div class="milestone-item active" onclick="toggleMilestone(this)">
-					<div class="milestone-row">
-					  <span class="milestone-no">1</span>
-					  <div class="milestone-pct"><span class="pct-badge">10%</span></div>
-					  <span class="milestone-title">Design Advance & 3D Sign-off</span>
-					  <span class="arrow-icon">&#9660;</span>
+				<!-- Step 2 -->
+				<div class="step-panel" data-step="1">
+				  <div class="step-grid">
+					<div class="step-info">
+					  <span class="step-badge">Stage 02</span>
+					  <h3>3D Design & Material Selection</h3>
+					  <p>Photorealistic 3D visualization of all rooms, followed by hands-on selection of wood finishes, hardware, and fabrics.</p>
 					</div>
-					<div class="hint-window">
-					  <div class="hint-content">
-						<div class="hint-header">
-						  <span>🏗 Execution Hint</span>
-						  <span>Stage 1</span>
-						</div>
-						<p class="hint-text">
-						  Initial design freezing, 3D render sign-off, Material Selection.
-						</p>
-					  </div>
+					<div class="payment-card">
+					  <span class="milestone-label">Payment Milestone</span>
+					  <div class="payment-amount">40% Design Approval</div>
+					  <p>Triggers raw material procurement and off-site factory manufacturing.</p>
 					</div>
 				  </div>
-
-				  <!-- Item 2 -->
-				  <div class="milestone-item" onclick="toggleMilestone(this)">
-					<div class="milestone-row">
-					  <span class="milestone-no">2</span>
-					  <div class="milestone-pct"><span class="pct-badge">40%</span></div>
-					  <span class="milestone-title">Material Procurement & Site Execution</span>
-					  <span class="arrow-icon">&#9660;</span>
-					</div>
-					<div class="hint-window">
-					  <div class="hint-content">
-						<div class="hint-header">
-						  <span>🏗 Execution Hint</span>
-						  <span>Stage 2</span>
-						</div>
-						<p class="hint-text">
-						  After Procument, Material is sent to site for Execution. Carcus Cutting and Fixing is initiated.
-						</p>
-					  </div>
-					</div>
-				  </div>
-
-				  <!-- Item 3 -->
-				  <div class="milestone-item" onclick="toggleMilestone(this)">
-					<div class="milestone-row">
-					  <span class="milestone-no">3</span>
-					  <div class="milestone-pct"><span class="pct-badge">40%</span></div>
-					  <span class="milestone-title">Carcass Completion & Shutter Making</span>
-					  <span class="arrow-icon">&#9660;</span>
-					</div>
-					<div class="hint-window">
-					  <div class="hint-content">
-						<div class="hint-header">
-						  <span>🏗 Execution Hint</span>
-						  <span>Stage 3</span>
-						</div>
-						<p class="hint-text">
-						  Order Placement for Outer Laminate and shutter Making as per the Design.
-						</p>
-					  </div>
-					</div>
-				  </div>
-
-				  <!-- Item 4 -->
-				  <div class="milestone-item" onclick="toggleMilestone(this)">
-					<div class="milestone-row">
-					  <span class="milestone-no">4</span>
-					  <div class="milestone-pct"><span class="pct-badge">10%</span></div>
-					  <span class="milestone-title">Hardware, Shutter Fixing & Final Handover</span>
-					  <span class="arrow-icon">&#9660;</span>
-					</div>
-					<div class="hint-window">
-					  <div class="hint-content">
-						<div class="hint-header">
-						  <span>🏗 Execution Hint</span>
-						  <span>Stage 4</span>
-						</div>
-						<p class="hint-text">
-						  On-site assembly, hinge/hardware alignment, shutter installation, and final client sign-off.
-						</p>
-					  </div>
-					</div>
-				  </div>
-
 				</div>
+
+				<!-- Step 3 -->
+				<div class="step-panel" data-step="2">
+				  <div class="step-grid">
+					<div class="step-info">
+					  <span class="step-badge">Stage 03</span>
+					  <h3>Factory Production & Site Fit-Out</h3>
+					  <p>Precision modular units are manufactured off-site and transported for on-site assembly with strict quality audits.</p>
+					</div>
+					<div class="payment-card">
+					  <span class="milestone-label">Payment Milestone</span>
+					  <div class="payment-amount">45% Pre-Dispatch</div>
+					  <p>Settled prior to material dispatch from factory to site for installation.</p>
+					</div>
+				  </div>
+				</div>
+
+				<!-- Step 4 -->
+				<div class="step-panel" data-step="3">
+				  <div class="step-grid">
+					<div class="step-info">
+					  <span class="step-badge">Stage 04</span>
+					  <h3>Final Audit & Key Handover</h3>
+					  <p>Deep cleaning, comprehensive 45-point quality inspection, and handing over the completed home keys to you.</p>
+					</div>
+					<div class="payment-card">
+					  <span class="milestone-label">Payment Milestone</span>
+					  <div class="payment-amount">5% Final Walkthrough</div>
+					  <p>Paid after final inspection, walkthrough sign-off, and key handover.</p>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div class="card-footer-plan">
+				<button id="prevBtn" class="btn ghost" onclick="changePlanStep(-1)" disabled>&larr; Previous</button>
+				<button id="nextBtn" class="btn primary" onclick="changePlanStep(1)">Next Step &rarr;</button>
+			  </div>
+
+			  <div class="why-us-accordion">
+				<button class="accordion-toggle" onclick="toggleWhyUs()" id="whyUsToggle">
+				  <span>Why Choose Us?</span>
+				  <span class="toggle-icon">+</span>
+				</button>
+				<div class="accordion-content" id="whyUsContent">
+				  <div class="features-grid">
+					<div class="feature-item">
+					  <strong>45-Day Delivery</strong>
+					  <p>On-time completion guarantee so you can plan your move-in date with confidence.</p>
+					</div>
+					<div class="feature-item">
+					  <strong>10-Year Warranty</strong>
+					  <p>Long-term warranty coverage on all modular woodwork and hardware components.</p>
+					</div>
+					<div class="feature-item">
+					  <strong>Zero Hidden Costs</strong>
+					  <p>100% transparent itemized pricing locked in at design sign-off.</p>
+					</div>
+				  </div>
+				</div>
+			  </div>
 			</div>
 		</section>
-		<!-- WHY CHOOSE US SECTION -->
-		<section id="why-choose-us" class="rise">
-			<div class="section-head">
-				<div>
-					<h2>Why Choose InterioArc</h2>
-					<p>Crafting bespoke architectural interiors with uncompromised precision.</p>
-				</div>
-			</div>
-			<div class="grid cols-3">
-				<div class="why-card">
-					<div class="why-icon">✦</div>
-					<h3 class="why-title">German Precision Engineering</h3>
-					<p class="why-desc">We exclusively integrate top-tier Hettich & Hafele soft-close hardware, ensuring whisper-quiet longevity for all cabinetry and moveable architectural elements.</p>
-				</div>
-				<div class="why-card">
-					<div class="why-icon">💎</div>
-					<h3 class="why-title">Transparent Line-Item BOQ</h3>
-					<p class="why-desc">No hidden expenses or ambiguous estimations. Detailed material grades, hardware specifications, and visual reference grids are transparently documented.</p>
-				</div>
-				<div class="why-card">
-					<div class="why-icon">🛡️</div>
-					<h3 class="why-title">10-Year Structural Warranty</h3>
-					<p class="why-desc">Built with Boiling Water Proof (BWP) plywood carcass and high-pressure decorative laminates, backed by our comprehensive warranty and dedicated post-handover support.</p>
-				</div>
-			</div>
-		</section>
-		<!-- 4 STEPS TO COMPLETE INTERIOR WORK JOURNEY -->
-		<section id="interior-journey" class="rise">
-			<div class="section-head">
-				<div>
-					<h2>4-Step Interior Execution Journey</h2>
-					<p>An orchestrated, stress-free pathway from initial vision to final key handover.</p>
-				</div>
-			</div>
-			<div class="process-container" id="journeyContainer">
-				<div class="process-track">
-					<div class="process-progress-bar" id="progressBar"></div>
-				</div>
-				<div class="grid cols-4">
-					<!-- Step 1 -->
-					<div class="step-card active-step" id="stepCard1" onclick="handleCardClick(1)">
-						<div class="collapsed-header">
-							<div class="step-node" id="stepNode1">01</div>
-							<h3 class="step-title">Design & 3D Visualization</h3>
-						</div>
-						<div class="step-content-collapsible">
-							<div class="step-tag">Step 1 • Discovery</div>
-							<p class="step-desc">In-depth site measurements, space planning, material sampling, and interactive 3D renders customized to your lifestyle aesthetics.</p>
-							<div class="step-time">⏱️ Week 1 – 2</div>
-							<div class="step-actions">
-								<button class="btn primary" onclick="event.stopPropagation(); goToStep(2)" style="width:100%;">Proceed to Step 2 →</button>
-							</div>
-						</div>
-					</div>
 
-					<!-- Step 2 -->
-					<div class="step-card" id="stepCard2" onclick="handleCardClick(2)">
-						<div class="collapsed-header">
-							<div class="step-node" id="stepNode2">02</div>
-							<h3 class="step-title">3D Sign-off & Final BOQ</h3>
-						</div>
-						<div class="step-content-collapsible">
-							<div class="step-tag">Step 2 • Agreement</div>
-							<p class="step-desc">Selection of packages, precise line-item cost freezing, production drawings sign-off, and initial advance payment processing.</p>
-							<div class="step-time">⏱️ Week 2</div>
-							<div class="step-actions">
-								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(1)">← Back</button>
-								<button class="btn primary" onclick="event.stopPropagation(); goToStep(3)" style="flex-grow:1;">Proceed to Step 3 →</button>
-							</div>
-						</div>
-					</div>
-
-					<!-- Step 3 -->
-					<div class="step-card" id="stepCard3" onclick="handleCardClick(3)">
-						<div class="collapsed-header">
-							<div class="step-node" id="stepNode3">03</div>
-							<h3 class="step-title">Precision Factory Production</h3>
-						</div>
-						<div class="step-content-collapsible">
-							<div class="step-tag">Step 3 • Off-Site Crafting</div>
-							<p class="step-desc">High-precision laser edge-banding and CNC cutting of modular carcasses at our automated facility, parallel to site civil work.</p>
-							<div class="step-time">⏱️ Week 3 – 5</div>
-							<div class="step-actions">
-								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(2)">← Back</button>
-								<button class="btn primary" onclick="event.stopPropagation(); goToStep(4)" style="flex-grow:1;">Proceed to Step 4 →</button>
-							</div>
-						</div>
-					</div>
-
-					<!-- Step 4 -->
-					<div class="step-card" id="stepCard4" onclick="handleCardClick(4)">
-						<div class="collapsed-header">
-							<div class="step-node" id="stepNode4">04</div>
-							<h3 class="step-title">Installation & Key Handover</h3>
-						</div>
-						<div class="step-content-collapsible">
-							<div class="step-tag">Step 4 • On-Site Finish</div>
-							<p class="step-desc">Seamless site assembly of carcasses, shutter fittings, false ceiling illumination, deep cleaning, and formal key handover.</p>
-							<div class="step-time">⏱️ Week 6 – 7</div>
-							<div class="step-actions">
-								<button class="btn ghost" onclick="event.stopPropagation(); goToStep(3)">← Back</button>
-								<button class="btn gold-btn" onclick="event.stopPropagation(); finishJourney()" style="flex-grow:1;">Complete Journey 🎉</button>
-							</div>
-						</div>
-					</div>
+		<!-- ENHANCED INTERACTIVE COMPLETED PROJECTS SECTION -->
+		<section class="projects-section rise">
+		  <div class="section-header">
+			<div>
+				<h2>Completed Projects</h2>
+				<p class="muted" style="margin-top:2px">Explore our real-world site executions & client homes</p>
+			</div>
+			
+			<div style="display:flex; gap:12px; align-items:center; flex-wrap:nowwrap">
+				<!-- Category Filter Tabs -->
+				<div class="project-filters" id="projectFilters">
+					<button class="filter-btn active" data-filter="all">All</button>
+					<button class="filter-btn" data-filter="3bhk">3BHK</button>
+					<button class="filter-btn" data-filter="kitchen">Kitchens</button>
+					<button class="filter-btn" data-filter="bedroom">Bedrooms</button>
 				</div>
-
-				<!-- Congratulations Reveal Box -->
-				<div class="congrats-card" id="congratsBox">
-					<h3>🎉 Congratulations! Your Dream Interior Journey Begins Here</h3>
-					<p>You have reviewed all execution milestones. We are ready to transform your architectural vision into a stunning reality.</p>
-					<button class="btn primary" onclick="goToStep(1)">Replay Journey Steps 🔄</button>
+				<!-- Navigation Arrow Controls -->
+				<div class="scroll-controls">
+				  <button id="scrollLeft" aria-label="Scroll left">&larr;</button>
+				  <button id="scrollRight" aria-label="Scroll right">&rarr;</button>
 				</div>
 			</div>
-		</section>
-		<!-- Completed Interior Projects -->
-		<section id="projects" class="rise">
-			<div class="section-head">
-				<h2>Completed Interior Projects</h2> </div>
-			<div class="grid cols-3">
-				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop" alt="Project A Living">
-					<div class="card-pad">
-						<h3 class="title" style="font-size:18px">Vakil Metropolis — 3BHK</h3>
-						<div class="chip">Timeline: 7 weeks</div>
-						<p class="tag" style="margin-top:6px">Kitchen + 3 wardrobes + TV wall + ceiling lights</p>
-					</div>
-				</div>
-				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1600&auto=format&fit=crop" alt="Project B Kitchen">
-					<div class="card-pad">
-						<h3 class="title" style="font-size:18px">Prestige Tranquility — 2BHK</h3>
-						<div class="chip">Timeline: 6 weeks</div>
-						<p class="tag" style="margin-top:6px">Acrylic kitchen, BWP carcass, soft-close everywhere</p>
-					</div>
-				</div>
-				<div class="card"> <img class="img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop" alt="Project C Wardrobe">
-					<div class="card-pad">
-						<h3 class="title" style="font-size:18px">Sobha City — 4BHK</h3>
-						<div class="chip">Timeline: 8–9 weeks</div>
-						<p class="tag" style="margin-top:6px">PU wardrobes, study, false ceiling & electrical</p>
-					</div>
-				</div>
-			</div>
+		  </div>
+
+		  <!-- Horizontal Scroll Container Dynamic -->
+		  <div class="projects-container" id="projectsContainer"></div>
 		</section>
 		
 	</main>
-		<footer class="container" style="padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 40px;">Built for <strong>Clients • Vakil Metropolis</strong> by InterioArc Design Studio</footer>
+	<footer class="container" style="padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.08);">Built for <strong>Clients • Vakil Metropolis</strong> by InterioArc Design Studio</footer>
 	
 	<!-- Package Selection Modal -->
 	<div class="modal-overlay" id="packageModal">
@@ -1368,126 +1388,84 @@
 		</div>
 	</div>
 
+	<!-- Extra Item Details Modal -->
+	<div class="modal-overlay" id="extraDetailModal">
+		<div class="modal-card">
+			<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px">
+				<h3 id="extraModalTitle" style="margin:0; font-size:18px; font-family:Poppins"></h3>
+				<span id="extraModalBadge" class="extra-card-badge"></span>
+			</div>
+			<p id="extraModalDesc" class="muted" style="font-size:13px; line-height:1.5; margin-bottom:16px"></p>
+			<div style="background: rgba(14,20,48,0.6); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.08); margin-bottom:16px">
+				<div style="display:flex; justify-content:space-between; font-size:13px;">
+					<span class="muted">Unit Price:</span>
+					<strong id="extraModalPrice" class="money" style="color:var(--brand)"></strong>
+				</div>
+			</div>
+			<div style="display:flex; justify-content:flex-end">
+				<button class="btn primary" id="extraModalClose">Close</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Project Lightbox / Detailed Modal -->
+	<div class="modal-overlay" id="projectDetailModal">
+		<div class="modal-card project-modal">
+			<img id="modalProjImg" class="project-modal-img" src="" alt="Project Detail">
+			<div class="project-modal-body">
+				<div style="display:flex; justify-content:space-between; align-items:flex-start">
+					<h3 id="modalProjTitle" style="margin:0; font-size:20px; font-family:Poppins"></h3>
+					<span id="modalProjCategory" class="chip" style="text-transform:uppercase; font-size:10px"></span>
+				</div>
+				<p id="modalProjDesc" class="muted" style="margin:10px 0 0; font-size:13px; line-height:1.5"></p>
+				
+				<div class="project-spec-grid">
+					<div class="project-spec-item">
+						<span>Timeline</span>
+						<strong id="modalProjTime"></strong>
+					</div>
+					<div class="project-spec-item">
+						<span>Finish Type</span>
+						<strong id="modalProjFinish"></strong>
+					</div>
+					<div class="project-spec-item">
+						<span>Scope</span>
+						<strong id="modalProjScope"></strong>
+					</div>
+					<div class="project-spec-item">
+						<span>Location</span>
+						<strong id="modalProjLoc"></strong>
+					</div>
+				</div>
+				<div style="display:flex; justify-content:flex-end">
+					<button class="btn primary" id="modalProjClose">Close Details</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div id="toast" style="position:fixed; top:18px; right:18px; background:#0b1330; color:#fff; padding:10px 16px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,.35); opacity:0; transition:opacity .25s, transform .25s; transform:translateY(-10px); z-index:9999;"></div>
 
 	<script>
-		// Interactive Payment Schedule Data with completion hints & dual progress metrics
-	const paymentStages = [
-		{
-			no: 1,
-			pct: 10,
-			cumPayPct: 10,
-			workPct: 15,
-			stage: 'Advance Booking & 3D Sign-off',
-			hint: 'Design freeze, detailed 2D/3D production drawings completed, and raw BWP/HDF board procurement initiated.'
-		},
-		{
-			no: 2,
-			pct: 40,
-			cumPayPct: 50,
-			workPct: 50,
-			stage: 'Material Procurement & Factory Cutting',
-			hint: 'All plywood, hardware, and laminates delivered to factory. Precision CNC carcass cutting & edge-banding under way.'
-		},
-		{
-			no: 3,
-			pct: 35,
-			cumPayPct: 85,
-			workPct: 80,
-			stage: 'Carcass Completion & Site Dispatch',
-			hint: 'All modular carcasses assembled, edge-sealed, and delivered to site. On-site carcass mounting and civil alignment complete.'
-		},
-		{
-			no: 4,
-			pct: 15,
-			cumPayPct: 100,
-			workPct: 100,
-			stage: 'Hardware, Shutter Fixing & Final Handover',
-			hint: 'Full installation of shutters, Hettich soft-close hinges, false ceiling lighting, deep cleaning, and final key handover! 🔑'
-		}
-	];
-
-	function renderInteractivePaymentTerms() {
-		const container = document.getElementById('paymentRowsContainer');
-		if (!container) return;
-		container.innerHTML = '';
-
-		paymentStages.forEach((item, index) => {
-			const row = document.createElement('div');
-			row.className = `payment-row-interactive ${index === 0 ? 'active-payment' : ''}`;
-			row.dataset.stageIndex = index;
-
-			row.innerHTML = `
-				<div class="payment-no">${item.no}</div>
-				<div><span class="payment-pct-badge">${item.pct}%</span></div>
-				<div class="payment-stage-title">${item.stage}</div>
-				<div><span class="payment-status-icon" id="statusIcon${index}">${index === 0 ? '● Active' : 'Select'}</span></div>
-			`;
-
-			row.addEventListener('click', () => selectPaymentStage(index));
-			container.appendChild(row);
-		});
-	}
-
-	function selectPaymentStage(index) {
-		const stage = paymentStages[index];
-		if (!stage) return;
-
-		// Update Row Highlights
-		const rows = document.querySelectorAll('.payment-row-interactive');
-		rows.forEach((r, i) => {
-			const icon = document.getElementById(`statusIcon${i}`);
-			if (i === index) {
-				r.classList.add('active-payment');
-				if (icon) icon.textContent = '● Active';
-			} else {
-				r.classList.remove('active-payment');
-				if (icon) icon.textContent = 'Select';
-			}
-		});
-
-		// Animate Meter Bars
-		const payFill = document.getElementById('payMeterFill');
-		const workFill = document.getElementById('workMeterFill');
-		const payText = document.getElementById('payPctText');
-		const workText = document.getElementById('workPctText');
-
-		if (payFill) payFill.style.width = stage.cumPayPct + '%';
-		if (workFill) workFill.style.width = stage.workPct + '%';
-		if (payText) payText.textContent = stage.cumPayPct + '%';
-		if (workText) workText.textContent = stage.workPct + '%';
-
-		// Update Completion Hint
-		const hintStageNo = document.getElementById('hintStageNo');
-		const hintText = document.getElementById('hintText');
-
-		if (hintStageNo) hintStageNo.textContent = `• Stage ${stage.no}`;
-		if (hintText) hintText.textContent = stage.hint;
-	}
-
-
-	// Common additional items available to add separately for Basic/Premium
 	const addableExtraItems = [
-		{ id: 'opt_gen_1', room: 'general', name: 'Designer False Ceiling with Cove Lighting', rate: 115000, qty: 1 }, 
-		{ id: 'opt_gen_2', room: 'general', name: 'Partition between living and dining', rate: 45000, qty: 1 },
-		{ id: 'opt_gen_3', room: 'general', name: 'Curtains with wallpapers', rate: 75000, qty: 1 },
-		{ id: 'opt_gen_4', room: 'general', name: 'Royale Paint - One coat Painting for villa . Two coat paty for ceiling with two coat paint.', rate: 60000, qty: 1 },
-		{ id: 'opt_fab_1', room: 'fabrication', name: 'Safety Grill with two doors and Mangalore tile roof ', rate: 135000, qty: 1 },
-		{ id: 'opt_fab_2', room: 'fabrication', name: 'Ms Work Gazebo with Mangalore tiles roof on Terrace with Alluminium and Glass Partition', rate: 125000, qty: 1 },
-		{ id: 'opt_fab_3', room: 'fabrication', name: 'Safety Door For Main door', rate: 15000, qty: 1 },
-		{ id: 'opt_loo_1', room: 'loose', name: 'Custom Designer Sofa (3-Seater)', rate: 65000, qty: 1 },
-		{ id: 'opt_loo_2', room: 'loose', name: 'Accent chair/ Lounger (2-Seater)', rate: 40000, qty: 1 },
-		{ id: 'opt_loo_3', room: 'loose', name: 'Designer Queen Size bed without storage', rate: 50000, qty: 1 },
-		{ id: 'opt_loo_4', room: 'loose', name: 'Designer King Size bed without storage', rate: 55000, qty: 1 },
-		{ id: 'opt_loo_5', room: 'loose', name: 'Coffee Table', rate: 15000, qty: 1 },		
-		{ id: 'opt_loo_6', room: 'loose', name: 'Smart Italian Marble Top Dining Table (4-Seater)', rate: 125000, qty: 1 }
+		{ id: 'opt_gen_1', room: 'general', name: 'Designer False Ceiling with Cove Lighting', rate: 115000, qty: 1, desc: 'Gypsum board false ceiling with integrated warm LED cove channels and peripheral spotlight cuts.' }, 
+		{ id: 'opt_gen_2', room: 'general', name: 'Partition between living and dining', rate: 45000, qty: 1, desc: 'Aesthetic open-slat wooden or CNC metal partition divider for soft zone separation.' },
+		{ id: 'opt_gen_3', room: 'general', name: 'Curtains with wallpapers', rate: 75000, qty: 1, desc: 'Double-track sheer and blackout drapery along with designer accent wall coverings.' },
+		{ id: 'opt_gen_4', room: 'general', name: 'Royale Paint - One coat Painting for villa . Two coat paty for ceiling with two coat paint.', rate: 60000, qty: 1, desc: 'Asian Paints Royale Luxury Emulsion finish with thorough surface prep and ceiling touch-ups.' },
+		{ id: 'opt_fab_1', room: 'fabrication', name: 'Safety Grill with two doors and Mangalore tile roof ', rate: 135000, qty: 1, desc: 'Heavy-duty powder-coated MS safety grills with tile roof canopy protection.' },
+		{ id: 'opt_fab_2', room: 'fabrication', name: 'Ms Work Gazebo with Mangalore tiles roof on Terrace with Alluminium and Glass Partition', rate: 125000, qty: 1, desc: 'Custom outdoor structural steel frame gazebo with terracotta roof tiles and glass enclosing options.' },
+		{ id: 'opt_fab_3', room: 'fabrication', name: 'Safety Door For Main door', rate: 15000, qty: 1, desc: 'Reinforced steel safety door with multi-latch security lock matching main entryway acoustics.' },
+		{ id: 'opt_loo_1', room: 'loose', name: 'Custom Designer Sofa (3-Seater)', rate: 65000, qty: 1, desc: 'High-density foam 3-seater couch with stain-resistant velvet/fabric upholstery.' },
+		{ id: 'opt_loo_2', room: 'loose', name: 'Accent chair/ Lounger (2-Seater)', rate: 40000, qty: 1, desc: 'Ergonomic lounge chair with solid wood legs and premium cushions.' },
+		{ id: 'opt_loo_3', room: 'loose', name: 'Designer Queen Size bed without storage', rate: 50000, qty: 1, desc: 'Sturdy hardwood queen bed frame with fully cushioned custom headboard.' },
+		{ id: 'opt_loo_4', room: 'loose', name: 'Designer King Size bed without storage', rate: 55000, qty: 1, desc: 'King-size platform bed unit crafted with high-grade ply and veneer finishes.' },
+		{ id: 'opt_loo_5', room: 'loose', name: 'Coffee Table', rate: 15000, qty: 1, desc: 'Minimalist central coffee table with marble finish top and metal base frame.' },		
+		{ id: 'opt_loo_6', room: 'loose', name: 'Smart Italian Marble Top Dining Table (4-Seater)', rate: 125000, qty: 1, desc: '4-seater luxury dining ensemble featuring imported polished Italian marble top.' }
 	];
 
-	// =========================================================================
-	// SEPARATE PACKAGE SEED DATASETS
-	// Basic & Premium exclude False Ceiling, Fabrication, and Loose Furniture.
-	// Luxury includes them by default.
-	// =========================================================================
+	let extraSearchQuery = '';
+	let extraCategoryFilter = 'all';
+
 	const packageSeeds = {
 		basic: [
 			{ id: 'b_liv_1', room: 'living', name: 'TV Unit in Laminate Panel', rate: 55000, qty: 1 },
@@ -1523,29 +1501,13 @@
 		]
 	};
 
-	// Metadata & Discounts per Package
 	const packages = {
-		basic: {
-			label: 'Basic',
-			extraDiscount: 2.2
-		},
-		premium: {
-			label: 'Premium',
-			extraDiscount: 3.7
-		},
-		luxury: {
-			label: 'Luxury',
-			extraDiscount: 3.5
-		
-		}
+		basic: { label: 'Basic', extraDiscount: 2.2 },
+		premium: { label: 'Premium', extraDiscount: 3.7 },
+		luxury: { label: 'Luxury', extraDiscount: 3.5 }
 	};
 
-	// Helpers
-	const f = new Intl.NumberFormat('en-IN', {
-		style: 'currency',
-		currency: 'INR',
-		maximumFractionDigits: 0
-	});
+	const f = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
 	const money = n => f.format(n || 0);
 	const $ = s => document.querySelector(s);
 	const $$ = s => Array.from(document.querySelectorAll(s));
@@ -1555,7 +1517,6 @@
 		return n;
 	};
 
-	// Toast Helper
 	function showToast(msg) {
 		const t = document.getElementById('toast');
 		if(!t) return;
@@ -1568,135 +1529,29 @@
 		}, 1800);
 	}
 
-	// Animate
 	const io = new IntersectionObserver(es => es.forEach(e => {
 		if(e.isIntersecting) {
 			e.target.classList.add('show');
 			io.unobserve(e.target);
 		}
-	}), {
-		threshold: .12
-	});
+	}), { threshold: .12 });
 	$$('.rise').forEach(n => io.observe(n));
 
-		/* COLLAPSIBLE INTERACTIVE JOURNEY CONTROLLER */
-	let currentJourneyStep = 1;
+	const rooms = [
+		{ key: 'living', label: 'Living' },
+		{ key: 'kitchen', label: 'Kitchen' },
+		{ key: 'guest', label: 'Guest Bedroom' },
+		{ key: 'master', label: 'Master Bedroom' },
+		{ key: 'kids', label: 'Kids Bedroom' },
+		{ key: 'general', label: 'False Ceiling / Electrical' },
+		{ key: 'fabrication', label: 'Fabrication / Grills' },
+		{ key: 'home', label: 'Home Office' },
+		{ key: 'loose', label: 'Loose Furniture' }
+	];
 
-	function goToStep(stepNumber) {
-		currentJourneyStep = stepNumber;
-		const progressWidths = [0, 0, 33, 66, 100];
-		
-		const pBar = document.getElementById('progressBar');
-		if(pBar) pBar.style.width = progressWidths[stepNumber] + '%';
-
-		for (let i = 1; i <= 4; i++) {
-			const card = document.getElementById(`stepCard${i}`);
-			const node = document.getElementById(`stepNode${i}`);
-
-			if(!card) continue;
-
-			card.classList.remove('active-step', 'completed-step', 'collapsed-step');
-			
-			if (i === stepNumber) {
-				card.classList.add('active-step');
-				node.textContent = `0${i}`;
-			} else if (i < stepNumber) {
-				card.classList.add('collapsed-step');
-				node.textContent = '✓';
-			} else {
-				node.textContent = `0${i}`;
-			}
-		}
-
-		const congrats = document.getElementById('congratsBox');
-		if(congrats) congrats.style.display = 'none';
-
-		if(window.innerWidth < 940) {
-			const targetCard = document.getElementById(`stepCard${stepNumber}`);
-			if(targetCard) targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-		}
-	}
-
-	function handleCardClick(stepNumber) {
-		if (stepNumber < currentJourneyStep) {
-			goToStep(stepNumber);
-		}
-	}
-
-	function finishJourney() {
-		goToStep(4);
-		const congrats = document.getElementById('congratsBox');
-		if(congrats) {
-			congrats.style.display = 'block';
-			congrats.scrollIntoView({ behavior: 'smooth', block: 'center' });
-		}
-
-		if (typeof confetti === 'function') {
-			const duration = 2.5 * 1000;
-			const end = Date.now() + duration;
-
-			(function frame() {
-				confetti({
-					particleCount: 4,
-					angle: 60,
-					spread: 55,
-					origin: { x: 0 },
-					colors: ['#4aa8ff', '#7c3aed', '#f59e0b', '#22c55e']
-				});
-				confetti({
-					particleCount: 4,
-					angle: 120,
-					spread: 55,
-					origin: { x: 1 },
-					colors: ['#4aa8ff', '#7c3aed', '#f59e0b', '#22c55e']
-				});
-
-				if (Date.now() < end) {
-					requestAnimationFrame(frame);
-				}
-			}());
-		}
-		showToast('🎉 Congratulations on completing the interior tour!');
-	}
-
-
-	const rooms = [{
-		key: 'living',
-		label: 'Living'
-	}, {
-		key: 'kitchen',
-		label: 'Kitchen'
-	}, {
-		key: 'guest',
-		label: 'Guest Bedroom'
-	}, {
-		key: 'master',
-		label: 'Master Bedroom'
-	}, {
-		key: 'kids',
-		label: 'Kids Bedroom'
-	}, {
-		key: 'general',
-		label: 'False Ceiling / Electrical'
-	}, {
-		key: 'fabrication',
-		label: 'Fabrication / Grills'
-	},{
-		key: 'home',
-		label: 'Home Office'
-	}, 
-	{
-		key: 'loose',
-		label: 'Loose Furniture'
-	}];
-
-	// -------------------------------------------------------------------------
-	// RESET ON REFRESH LOGIC: Clear saved state if reloading/refreshing the page
-	// -------------------------------------------------------------------------
 	if (!sessionStorage.getItem('is_reloaded')) {
 		sessionStorage.setItem('is_reloaded', '1');
 	} else {
-		// Page was refreshed — clear stored selections to reset everything to default
 		['basic', 'premium', 'luxury'].forEach(pkg => {
 			localStorage.removeItem('items_room_' + pkg);
 			localStorage.removeItem('deleted_items_' + pkg);
@@ -1706,7 +1561,6 @@
 		localStorage.removeItem('booted_premium_v1');
 	}
 
-	// Local State Initialization
 	let currentPkgKey = localStorage.getItem('active_pkg') || 'premium';
 
 	function loadStateForPackage(pkgKey) {
@@ -1748,28 +1602,21 @@
 	}
 
 	function updateBanner() {
-	const uni = isUniformPackage();
-	const badge = $('#selectedPackage');
+		const uni = isUniformPackage();
+		const badge = $('#selectedPackage');
 
-	if (badge) {
-		// Update label text
-		badge.textContent = uni ? packages[uni].label : 'Custom Mix';
-
-		// Reset active theme classes
-		badge.classList.remove('basic-theme', 'premium-theme', 'luxury-theme');
-
-		// Apply matching selected button style
-		if (uni) {
-			badge.classList.add(`${uni}-theme`);
+		if (badge) {
+			badge.textContent = uni ? packages[uni].label : 'Custom Mix';
+			badge.classList.remove('basic-theme', 'premium-theme', 'luxury-theme');
+			if (uni) {
+				badge.classList.add(`${uni}-theme`);
+			}
 		}
+
+		$$('.pkg-card').forEach(c => c.classList.toggle('active', !!uni && c.dataset.pkg === uni));
+		$$('.usePkg').forEach(btn => btn.classList.toggle('selected', !!uni && btn.dataset.pick === uni));
 	}
 
-	$$('.pkg-card').forEach(c => c.classList.toggle('active', !!uni && c.dataset.pkg === uni));
-	$$('.usePkg').forEach(btn => btn.classList.toggle('selected', !!uni && btn.dataset.pick === uni));
-}
-
-
-	// Read-only grouped rendering
 	function renderReadOnly() {
 		const roomsOrder = rooms.map(r => r.key);
 		const byRoom = {};
@@ -1794,7 +1641,7 @@
 
 			let roomSubtotal = 0;
 			list.forEach(row => {
-				const amount = Number(row.qty || 0) * Number(row.rate || 0);
+				const amount = Number(row.qty || 1) * Number(row.rate || 0);
 				roomSubtotal += amount;
 				
 				const showDelete = !!row.isRestored;
@@ -1804,7 +1651,7 @@
 
 				const rowEl = el('div', 'cost-row');
 				rowEl.innerHTML = `
-<div>${row.name}</div>
+<div>${row.name} ${row.qty > 1 ? `<span class="muted">(x${row.qty})</span>` : ''}</div>
 <div class="money">₹${Math.round(amount).toLocaleString('en-IN')}</div>
 <div style="text-align: right;">${deleteBtnHtml}</div>`;
 
@@ -1837,7 +1684,6 @@
 			cont.appendChild(sub);
 		});
 
-		// Section totals
 		$('#sectionSubtotal').textContent = money(sectionSubtotal);
 		const disc = sectionSubtotal * (effectiveDiscountPct() / 100);
 		$('#sectionDiscount').textContent = money(disc);
@@ -1849,7 +1695,7 @@
 	function compute() {
 		let subtotal = 0;
 		state.items.forEach(row => {
-			subtotal += Number(row.qty || 0) * Number(row.rate || 0);
+			subtotal += Number(row.qty || 1) * Number(row.rate || 0);
 		});
 		const disc = subtotal * (effectiveDiscountPct() / 100);
 		const afterDisc = subtotal - disc;
@@ -1871,11 +1717,10 @@
 		const savedItems = localStorage.getItem('items_room_' + pkgKey);
 		const itemsToCalculate = savedItems ? JSON.parse(savedItems) : packageSeeds[pkgKey] || [];
 		
-		const sub = itemsToCalculate.reduce((acc, item) => acc + (Number(item.qty || 0) * Number(item.rate || 0)), 0);
+		const sub = itemsToCalculate.reduce((acc, item) => acc + (Number(item.qty || 1) * Number(item.rate || 0)), 0);
 		const discountPct = packages[pkgKey].extraDiscount;
 		const disc = sub * (discountPct / 100);
 		const afterDisc = sub - disc;
-		//const gst = afterDisc * (18 / 100);
 		return { sub, disc, grand: afterDisc, discountPct };
 	}
 
@@ -1907,7 +1752,6 @@
 		currentPkgKey = key;
 		rooms.forEach(r => state.roomPkg[r.key] = key);
 
-		// Switch state to stored additions for target package or defaults
 		const pkgData = loadStateForPackage(key);
 		state.items = pkgData.items;
 		state.deleted = pkgData.deleted;
@@ -1922,7 +1766,6 @@
 
 	function bindUsePkg() {
 		$$('.usePkg').forEach(btn => btn.addEventListener('click', (e) => {
-			console.log(btn.dataset.pick);
 			if(btn.dataset.pick=='basic'){
 				document.getElementById('basic-details').style.display = 'block'; 
 				document.getElementById('luxury-details').style.display = 'none';
@@ -1942,12 +1785,7 @@
 			applyPackage(btn.dataset.pick);
 		}));
 
-		$$('.pkg-card').forEach(card => {
-			card.addEventListener('click', e => {
-				if(e.target.closest('.usePkg') || e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-				applyPackage(card.dataset.pkg);
-			});
-		});
+		
 
 		const modal = $('#packageModal');
 		const cancelBtn = $('#modalCancel');
@@ -1972,58 +1810,83 @@
 				showToast(`Switched to ${packages[pkgKey].label} Package`);
 			});
 		});
-
-		const addAllBtn = document.getElementById('addAllBtn');
-		if (addAllBtn) {
-			addAllBtn.addEventListener('click', () => {
-				if (!state.deleted || state.deleted.length === 0) return;
-				state.deleted.forEach(item => {
-					item.isRestored = true;
-					state.items.push(item);
-				});
-				state.deleted = [];
-				persist();
-				renderReadOnly();
-				compute();
-				renderPackagePrices();
-				renderRemoved();
-				showToast('All extra items added to quotation');
-			});
-		}
 	}
 
+	/* ENHANCED EXTRA ITEMS FUNCTIONALITY FROM FINAL HALF */
 	function renderRemoved() {
 		const wrap = document.getElementById('removedWrap');
 		const addAllBtn = document.getElementById('addAllBtn');
 		if(!wrap) return;
-		const list = state.deleted || [];
 
-		if (addAllBtn) {
+		let list = state.deleted || [];
+
+		if(extraCategoryFilter !== 'all') {
+			list = list.filter(item => item.room === extraCategoryFilter);
+		}
+
+		if(extraSearchQuery.trim() !== '') {
+			const q = extraSearchQuery.toLowerCase();
+			list = list.filter(item => item.name.toLowerCase().includes(q));
+		}
+
+		if(addAllBtn) {
 			addAllBtn.style.display = list.length > 0 ? 'inline-flex' : 'none';
 		}
 
 		if(list.length === 0) {
-			wrap.innerHTML = '<div class="tag">No extra items available.</div>';
+			wrap.innerHTML = `<div class="tag muted" style="text-align:center; padding: 24px 0;">No extra items match your filter.</div>`;
 			return;
 		}
-		let removedTotal = 0;
+
 		const grid = document.createElement('div');
-		grid.className = 'grid';
+		grid.className = 'grid cols-3';
+
 		list.forEach(it => {
-		const itemAmount = Number(it.qty || 1) * Number(it.rate || 0);
+			const itemTotal = Number(it.qty || 1) * Number(it.rate || 0);
 			const card = document.createElement('div');
-			card.className = 'card card-pad';
-			card.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; gap:10px">
-<div><strong>${it.name}</strong></div>
-<div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px">
-	<button class="btn" data-restore="${it.id}">Add</button>
-	<div class="money tag" style="font-size:13px">₹${Math.round(itemAmount).toLocaleString('en-IN')}</div>
-</div>
-</div>`;
-			card.querySelector('[data-restore]').addEventListener('click', () => {
-				const i = (state.deleted || []).findIndex(x => x.id === it.id);
-				if(i >= 0) {
-					const [rec] = state.deleted.splice(i, 1);
+			card.className = 'extra-item-card';
+			
+			const categoryLabel = it.room === 'general' ? 'Ceiling' : (it.room === 'fabrication' ? 'Grills' : 'Loose');
+
+			card.innerHTML = `
+				<div class="extra-card-header">
+					<h4 class="extra-card-title">${it.name}</h4>
+					<span class="extra-card-badge">${categoryLabel}</span>
+				</div>
+				<div style="display:flex; justify-content:space-between; align-items:center;">
+					<span class="money" style="color:var(--brand); font-size:15px">₹${Math.round(itemTotal).toLocaleString('en-IN')}</span>
+					<button class="info-btn" data-info="${it.id}">ℹ️ Details</button>
+				</div>
+				<div class="extra-card-footer">
+					<div class="qty-stepper">
+						<button class="qty-btn" data-step-minus="${it.id}">−</button>
+						<input type="number" class="qty-input" value="${it.qty || 1}" readonly>
+						<button class="qty-btn" data-step-plus="${it.id}">+</button>
+					</div>
+					<button class="btn primary" style="padding:6px 12px; font-size:12px;" data-add="${it.id}">+ Add</button>
+				</div>
+			`;
+
+			card.querySelector(`[data-step-minus="${it.id}"]`).addEventListener('click', () => {
+				if((it.qty || 1) > 1) {
+					it.qty = (it.qty || 1) - 1;
+					renderRemoved();
+				}
+			});
+
+			card.querySelector(`[data-step-plus="${it.id}"]`).addEventListener('click', () => {
+				it.qty = (it.qty || 1) + 1;
+				renderRemoved();
+			});
+
+			card.querySelector(`[data-info="${it.id}"]`).addEventListener('click', () => {
+				openExtraModal(it);
+			});
+
+			card.querySelector(`[data-add="${it.id}"]`).addEventListener('click', () => {
+				const idx = state.deleted.findIndex(x => x.id === it.id);
+				if(idx >= 0) {
+					const [rec] = state.deleted.splice(idx, 1);
 					rec.isRestored = true;
 					state.items.push(rec);
 					persist();
@@ -2031,32 +1894,276 @@
 					compute();
 					renderPackagePrices();
 					renderRemoved();
-					showToast('Item added to quotation');
+					showToast(`Added "${rec.name}" to quotation!`);
 				}
 			});
+
 			grid.appendChild(card);
-			removedTotal += (Number(it.qty || 1) * Number(it.rate || 0));
 		});
+
 		wrap.innerHTML = '';
 		wrap.appendChild(grid);
-		const totalBar = document.createElement('div');
-		totalBar.className = 'room-subtotal';
-		totalBar.innerHTML = `<div style="min-width:240px; text-align:right"><span>Available Items Total:</span> <span class="money">₹${Math.round(removedTotal).toLocaleString('en-IN')}</span></div>`;
-		wrap.appendChild(totalBar);
 	}
-	function toggleMilestone(element) {
-      const isAlreadyActive = element.classList.contains('active');
-      
-      // Close all active items
-      document.querySelectorAll('.milestone-item').forEach(item => {
-        item.classList.remove('active');
-      });
 
-      // Toggle current item
-      if (!isAlreadyActive) {
-        element.classList.add('active');
-      }
-    }
+	function setupExtraItemControls() {
+		const searchInput = document.getElementById('extraSearchInput');
+		searchInput?.addEventListener('input', (e) => {
+			extraSearchQuery = e.target.value;
+			renderRemoved();
+		});
+
+		const filterChips = document.querySelectorAll('#extraCategoryFilters .extra-filter-chip');
+		filterChips.forEach(chip => {
+			chip.addEventListener('click', () => {
+				filterChips.forEach(c => c.classList.remove('active'));
+				chip.classList.add('active');
+				extraCategoryFilter = chip.dataset.cat;
+				renderRemoved();
+			});
+		});
+
+		document.getElementById('addAllBtn')?.addEventListener('click', () => {
+			if (!state.deleted || state.deleted.length === 0) return;
+			let visibleList = state.deleted;
+			if(extraCategoryFilter !== 'all') {
+				visibleList = visibleList.filter(item => item.room === extraCategoryFilter);
+			}
+			if(extraSearchQuery.trim() !== '') {
+				const q = extraSearchQuery.toLowerCase();
+				visibleList = visibleList.filter(item => item.name.toLowerCase().includes(q));
+			}
+
+			visibleList.forEach(item => {
+				const idx = state.deleted.findIndex(x => x.id === item.id);
+				if (idx >= 0) {
+					const [rec] = state.deleted.splice(idx, 1);
+					rec.isRestored = true;
+					state.items.push(rec);
+				}
+			});
+
+			persist();
+			renderReadOnly();
+			compute();
+			renderPackagePrices();
+			renderRemoved();
+			showToast('Added visible items to quotation');
+		});
+	}
+
+	function openExtraModal(item) {
+		const modal = document.getElementById('extraDetailModal');
+		document.getElementById('extraModalTitle').textContent = item.name;
+		document.getElementById('extraModalBadge').textContent = item.room;
+		document.getElementById('extraModalDesc').textContent = item.desc || 'High quality material specification provided with long warranty.';
+		document.getElementById('extraModalPrice').textContent = money(item.rate);
+		modal.classList.add('open');
+	}
+
+	document.getElementById('extraModalClose')?.addEventListener('click', () => {
+		document.getElementById('extraDetailModal').classList.remove('open');
+	});
+
+	let currentPlanStep = 0;
+	const totalPlanSteps = 4;
+
+	function updatePlanUI() {
+	  document.querySelectorAll('#execution-plan .step-panel').forEach((panel, i) => {
+		panel.classList.toggle('active', i === currentPlanStep);
+	  });
+	  document.querySelectorAll('#execution-plan .nav-tab').forEach((tab, i) => {
+		tab.classList.toggle('active', i === currentPlanStep);
+	  });
+	  const prevBtn = document.getElementById('prevBtn');
+	  const nextBtn = document.getElementById('nextBtn');
+	  if(prevBtn) prevBtn.disabled = currentPlanStep === 0;
+	  if(nextBtn) nextBtn.innerHTML = currentPlanStep === totalPlanSteps - 1 ? 'Finish' : 'Next Step &rarr;';
+	}
+
+	function goToPlanStep(step) {
+	  currentPlanStep = step;
+	  updatePlanUI();
+	}
+
+	function changePlanStep(delta) {
+	  currentPlanStep = Math.max(0, Math.min(totalPlanSteps - 1, currentPlanStep + delta));
+	  updatePlanUI();
+	}
+
+	function toggleWhyUs() {
+	  const content = document.getElementById('whyUsContent');
+	  const icon = document.querySelector('#whyUsToggle .toggle-icon');
+	  if(!content || !icon) return;
+	  const isOpen = content.classList.contains('open');
+	  
+	  content.classList.toggle('open');
+	  icon.textContent = isOpen ? '+' : '−';
+	}
+
+	// =========================================================================
+	// INTERACTIVE COMPLETED PROJECTS DATA & CONTROLLER
+	// =========================================================================
+	const completedProjectsData = [
+		{
+			id: 'proj_1',
+			title: 'Vakil Metropolis — Villa 42',
+			category: '3bhk',
+			timeline: '7 Weeks',
+			finish: 'Acrylic & Veneer',
+			scope: 'Full Interior + Ceiling',
+			location: 'Bengaluru, KA',
+			likes: 24,
+			img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
+			summary: 'Modern living room setup with TV fluted panelling & dynamic cove lighting.',
+			desc: 'Comprehensive 3BHK transformation featuring soft-close modular kitchen cabinets, integrated ambient profile lighting, and custom master wardrobe units.'
+		},
+		{
+			id: 'proj_2',
+			title: 'Urban Oasis Kitchen',
+			category: 'kitchen',
+			timeline: '3 Weeks',
+			finish: 'High Gloss Acrylic',
+			scope: 'Modular Kitchen Fitout',
+			location: 'Bengaluru, KA',
+			likes: 18,
+			img: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1600&auto=format&fit=crop',
+			summary: 'Handleless minimalist acrylic kitchen with pull-out pantry.',
+			desc: 'Ergonomic kitchen layout featuring waterproof BWP plywood substructure, Quartz countertop, and smart soft-close tandem drawer systems.'
+		},
+		{
+			id: 'proj_3',
+			title: 'Serene Master Suite',
+			category: 'bedroom',
+			timeline: '4 Weeks',
+			finish: 'Laminate & Tinted Glass',
+			scope: 'Wardrobe & Headboard',
+			location: 'Bengaluru, KA',
+			likes: 31,
+			img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop',
+			summary: 'Floor-to-ceiling glass wardrobe with integrated warm lighting.',
+			desc: 'A luxury sanctuary with custom upholstered headboard panelling, hidden vanity desk, and sleek black aluminum profile wardrobe doors.'
+		},
+		{
+			id: 'proj_4',
+			title: 'Contemporary Foyer & Living',
+			category: '3bhk',
+			timeline: '6 Weeks',
+			finish: 'PU Paint & Metal Accents',
+			scope: 'Foyer Partition & TV Unit',
+			location: 'Bengaluru, KA',
+			likes: 15,
+			img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop',
+			summary: 'Custom brass partition separating entry foyer and living lounge.',
+			desc: 'Designed for space optimization, incorporating a slim shoe console, accent mirror, and customized ceiling cove highlights.'
+		}
+	];
+
+	let activeProjectFilter = 'all';
+
+	function renderProjects() {
+		const container = document.getElementById('projectsContainer');
+		if(!container) return;
+		container.innerHTML = '';
+
+		const filtered = activeProjectFilter === 'all' 
+			? completedProjectsData 
+			: completedProjectsData.filter(p => p.category === activeProjectFilter);
+
+		if(filtered.length === 0) {
+			container.innerHTML = '<div class="muted" style="padding:20px">No projects found in this category.</div>';
+			return;
+		}
+
+		filtered.forEach(proj => {
+			const card = document.createElement('div');
+			card.className = 'project-card';
+			card.innerHTML = `
+				<div class="project-img-wrap">
+					<img src="${proj.img}" alt="${proj.title}" loading="lazy">
+					<button class="like-btn" data-like="${proj.id}">
+						<span class="heart-icon">♥</span> <span class="like-count">${proj.likes}</span>
+					</button>
+					<span class="overlay-badge">${proj.timeline}</span>
+				</div>
+				<div class="card-pad">
+					<h3 class="title" style="font-size:16px; margin:0 0 4px">${proj.title}</h3>
+					<p class="tag muted" style="margin:0 0 10px">${proj.summary}</p>
+					<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px">
+						<span class="chip" style="font-size:11px">${proj.finish}</span>
+						<span style="font-size:12px; color:var(--brand); font-weight:600">View Specs &rarr;</span>
+					</div>
+				</div>
+			`;
+
+			// Card Lightbox Modal Click
+			card.addEventListener('click', (e) => {
+				if(e.target.closest('.like-btn')) return;
+				openProjectModal(proj);
+			});
+
+			// Like Button Click Handler
+			const likeBtn = card.querySelector('.like-btn');
+			likeBtn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const isLiked = likeBtn.classList.toggle('liked');
+				proj.likes += isLiked ? 1 : -1;
+				likeBtn.querySelector('.like-count').textContent = proj.likes;
+				showToast(isLiked ? 'Saved to your favorites!' : 'Removed from favorites');
+			});
+
+			container.appendChild(card);
+		});
+	}
+
+	function setupProjectFilters() {
+		const buttons = document.querySelectorAll('#projectFilters .filter-btn');
+		buttons.forEach(btn => {
+			btn.addEventListener('click', () => {
+				buttons.forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				activeProjectFilter = btn.dataset.filter;
+				renderProjects();
+			});
+		});
+	}
+
+	function openProjectModal(proj) {
+		const modal = document.getElementById('projectDetailModal');
+		document.getElementById('modalProjImg').src = proj.img;
+		document.getElementById('modalProjTitle').textContent = proj.title;
+		document.getElementById('modalProjCategory').textContent = proj.category;
+		document.getElementById('modalProjDesc').textContent = proj.desc;
+		document.getElementById('modalProjTime').textContent = proj.timeline;
+		document.getElementById('modalProjFinish').textContent = proj.finish;
+		document.getElementById('modalProjScope').textContent = proj.scope;
+		document.getElementById('modalProjLoc').textContent = proj.location;
+
+		modal.classList.add('open');
+	}
+
+	// Close Modal Listener
+	document.getElementById('modalProjClose')?.addEventListener('click', () => {
+		document.getElementById('projectDetailModal').classList.remove('open');
+	});
+	document.getElementById('projectDetailModal')?.addEventListener('click', (e) => {
+		if(e.target === document.getElementById('projectDetailModal')) {
+			document.getElementById('projectDetailModal').classList.remove('open');
+		}
+	});
+
+	// Smooth Scroll Navigation Arrows
+	const container = document.getElementById('projectsContainer');
+	const btnLeft = document.getElementById('scrollLeft');
+	const btnRight = document.getElementById('scrollRight');
+	const scrollAmount = 330;
+
+	btnRight?.addEventListener('click', () => {
+	  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+	});
+
+	btnLeft?.addEventListener('click', () => {
+	  container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+	});
 
 	// Initialization Sequence
 	renderReadOnly();
@@ -2064,7 +2171,10 @@
 	renderPackagePrices();
 	bindUsePkg();
 	updateBanner();
+	setupExtraItemControls();
 	renderRemoved();
+	setupProjectFilters();
+	renderProjects();
 	</script>
 </body>
 
