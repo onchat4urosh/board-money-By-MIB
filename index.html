@@ -968,7 +968,30 @@
 		font-size: 11px;
 		padding: 2px 5px;
 	}
-			
+    /* Dynamic Badge Styling to match Selected Buttons */
+.badge-pkg.basic-theme {
+	background: var(--basic-color);
+	border-color: #a6734c;
+	color: #fff;
+	box-shadow: 0 0 12px var(--basic-glow);
+}
+
+.badge-pkg.premium-theme {
+	background: #cbd5e1;
+	border-color: #ffffff;
+	color: #0f172a;
+	box-shadow: 0 0 12px var(--premium-glow);
+	font-weight: 700;
+}
+
+.badge-pkg.luxury-theme {
+	background: linear-gradient(135deg, #ffd700, #d4af37);
+	border-color: #fff099;
+	color: #1a1400;
+	box-shadow: 0 0 12px var(--luxury-glow);
+	font-weight: 700;
+}
+		
 	
 	</style>
 </head>
@@ -1725,11 +1748,26 @@
 	}
 
 	function updateBanner() {
-		const uni = isUniformPackage();
-		$('#selectedPackage').textContent = uni ? packages[uni].label : 'Custom Mix';
-		$$('.pkg-card').forEach(c => c.classList.toggle('active', !!uni && c.dataset.pkg === uni));
-		$$('.usePkg').forEach(btn => btn.classList.toggle('selected', !!uni && btn.dataset.pick === uni));
+	const uni = isUniformPackage();
+	const badge = $('#selectedPackage');
+
+	if (badge) {
+		// Update label text
+		badge.textContent = uni ? packages[uni].label : 'Custom Mix';
+
+		// Reset active theme classes
+		badge.classList.remove('basic-theme', 'premium-theme', 'luxury-theme');
+
+		// Apply matching selected button style
+		if (uni) {
+			badge.classList.add(`${uni}-theme`);
+		}
 	}
+
+	$$('.pkg-card').forEach(c => c.classList.toggle('active', !!uni && c.dataset.pkg === uni));
+	$$('.usePkg').forEach(btn => btn.classList.toggle('selected', !!uni && btn.dataset.pick === uni));
+}
+
 
 	// Read-only grouped rendering
 	function renderReadOnly() {
