@@ -311,7 +311,11 @@
 		font-size: 18px;
 		font-weight: 800
 	}
-	
+	.grand-line.total {
+		font-size: 18px;
+		color: var(--brand);
+		font-weight: 800;
+	}
 	.muted {
 		color: var(--muted);
 		font-size: 12px
@@ -1176,10 +1180,11 @@
 						<div>Amount</div>
 					</div>
 					<div id="roContainer"></div>
+					</br>
 					<div class="grand-wrap">
-						<div class="grand-line"><span>Section Subtotal</span><span id="sectionSubtotal">₹0</span></div>
-						<div class="grand-line"><span>Total Discount</span><span id="sectionDiscount">₹0</span></div>
-						<div class="grand-line"><span>Grand Total (after Discount)</span><span id="sectionGrand">₹0</span></div>
+						<div class="grand-line"><span>Section Subtotal:</span><span id="sectionSubtotal">₹0</span></div>
+						<div class="grand-line"><span>Total Discount:</span><span id="sectionDiscount" style="color:var(--gold)">₹0</span></div>
+						<div class="grand-line total"><span>Grand Total (after Discount):</span><span id="sectionGrand">₹0</span></div>
 						<div class="muted">Note: Prices Above are non-GST.</div>
 					</div>
 				</div>
@@ -1193,7 +1198,7 @@
 					<h2>Add Extra Items</h2>
 					<p class="muted" style="margin:4px 0 0 0">Customize your estimate with modular additions, ceiling designs, & loose furniture</p>
 				</div>
-				<button class="btn primary" id="addAllBtn">Add all visible</button>
+				<button class="btn primary" id="addAllBtn">Add all</button>
 			</div>
 
 			<div class="card card-pad">
@@ -1254,7 +1259,7 @@
 					<div class="step-info">
 					  <span class="step-badge">Stage 01</span>
 					  <h3>Discovery & Consultation</h3>
-					  <p>Initial meeting to map out spatial requirements, architectural preferences, and design vision to prepare your custom project blueprint.</p>
+					  <p>Initial meeting to map out spatial requirements and design vision to prepare your custom project blueprint.</p>
 					</div>
 					<div class="payment-card">
 					  <span class="milestone-label">Payment Milestone</span>
@@ -1270,12 +1275,12 @@
 					<div class="step-info">
 					  <span class="step-badge">Stage 02</span>
 					  <h3>3D Design & Material Selection</h3>
-					  <p>Photorealistic 3D visualization of all rooms, followed by hands-on selection of wood finishes, hardware, and fabrics.</p>
+					  <p>Photorealistic 3D visualization of all rooms, followed by hands-on selection of Laminates and fabrics.</p>
 					</div>
 					<div class="payment-card">
 					  <span class="milestone-label">Payment Milestone</span>
-					  <div class="payment-amount">40% Design Approval</div>
-					  <p>Triggers raw material procurement and off-site factory manufacturing.</p>
+					  <div class="payment-amount">40% Procurement</div>
+					  <p>Triggers raw material procurement and off-site manufacturing.</p>
 					</div>
 				  </div>
 				</div>
@@ -1285,13 +1290,13 @@
 				  <div class="step-grid">
 					<div class="step-info">
 					  <span class="step-badge">Stage 03</span>
-					  <h3>Factory Production & Site Fit-Out</h3>
-					  <p>Precision modular units are manufactured off-site and transported for on-site assembly with strict quality audits.</p>
+					  <h3>On Carcus Completion & Site Fit-Out</h3>
+					  <p>Precision modular units are manufactured on-site assembly with strict quality audits. False Ceiling Work Begins.</p>
 					</div>
 					<div class="payment-card">
 					  <span class="milestone-label">Payment Milestone</span>
-					  <div class="payment-amount">45% Pre-Dispatch</div>
-					  <p>Settled prior to material dispatch from factory to site for installation.</p>
+					  <div class="payment-amount">45% Shutter-Fixing</div>
+					  <p>To Purchase Shutters and Hardware For Setter Fixing.</p>
 					</div>
 				  </div>
 				</div>
@@ -1302,12 +1307,12 @@
 					<div class="step-info">
 					  <span class="step-badge">Stage 04</span>
 					  <h3>Final Audit & Key Handover</h3>
-					  <p>Deep cleaning, comprehensive 45-point quality inspection, and handing over the completed home keys to you.</p>
+					  <p>Deep cleaning, comprehensive quality inspection, Shutter Handles and Nobs fixing and handing over the completed home keys.</p>
 					</div>
 					<div class="payment-card">
 					  <span class="milestone-label">Payment Milestone</span>
 					  <div class="payment-amount">5% Final Walkthrough</div>
-					  <p>Paid after final inspection, walkthrough sign-off, and key handover.</p>
+					  <p>Paid Before, Final inspection, walkthrough sign-off, and key handover.</p>
 					</div>
 				  </div>
 				</div>
@@ -1837,7 +1842,7 @@
 			wrap.innerHTML = `<div class="tag muted" style="text-align:center; padding: 24px 0;">No extra items match your filter.</div>`;
 			return;
 		}
-
+		let removedTotal = 0;
 		const grid = document.createElement('div');
 		grid.className = 'grid cols-3';
 
@@ -1847,7 +1852,7 @@
 			card.className = 'extra-item-card';
 			
 			const categoryLabel = it.room === 'general' ? 'Ceiling' : (it.room === 'fabrication' ? 'Grills' : 'Loose');
-
+			
 			card.innerHTML = `
 				<div class="extra-card-header">
 					<h4 class="extra-card-title">${it.name}</h4>
@@ -1899,10 +1904,15 @@
 			});
 
 			grid.appendChild(card);
+			removedTotal += (Number(it.qty || 1) * Number(it.rate || 0));
 		});
 
 		wrap.innerHTML = '';
 		wrap.appendChild(grid);
+		const totalBar = document.createElement('div');
+		totalBar.className = 'room-subtotal';
+		totalBar.innerHTML = `<div style="min-width:240px; text-align:right"><span>Available Items Total:</span> <span class="money">₹${Math.round(removedTotal).toLocaleString('en-IN')}</span></div>`;
+		wrap.appendChild(totalBar);
 	}
 
 	function setupExtraItemControls() {
@@ -1922,17 +1932,21 @@
 			});
 		});
 
-		document.getElementById('addAllBtn')?.addEventListener('click', () => {
+			document.getElementById('addAllBtn')?.addEventListener('click', () => {
 			if (!state.deleted || state.deleted.length === 0) return;
-			let visibleList = state.deleted;
-			if(extraCategoryFilter !== 'all') {
+
+			// 1. Create a shallow copy of state.deleted so mutations don't disrupt iteration
+			let visibleList = [...state.deleted];
+			
+			if (extraCategoryFilter !== 'all') {
 				visibleList = visibleList.filter(item => item.room === extraCategoryFilter);
 			}
-			if(extraSearchQuery.trim() !== '') {
+			if (extraSearchQuery.trim() !== '') {
 				const q = extraSearchQuery.toLowerCase();
 				visibleList = visibleList.filter(item => item.name.toLowerCase().includes(q));
 			}
 
+			// 2. Safely restore items
 			visibleList.forEach(item => {
 				const idx = state.deleted.findIndex(x => x.id === item.id);
 				if (idx >= 0) {
