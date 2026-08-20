@@ -1854,36 +1854,53 @@
 			
 			const categoryLabel = it.room === 'general' ? 'Ceiling' : (it.room === 'fabrication' ? 'Grills' : 'Loose');
 			
-			card.innerHTML = `
-				<div class="extra-card-header">
-					<h4 class="extra-card-title">${it.name}</h4>
-					<span class="extra-card-badge">${categoryLabel}</span>
-				</div>
-				<div style="display:flex; justify-content:space-between; align-items:center;">
-					<span class="money" style="color:var(--brand); font-size:15px">₹${Math.round(itemTotal).toLocaleString('en-IN')}</span>
-					<button class="info-btn" data-info="${it.id}">ℹ️ Details</button>
-				</div>
-				<div class="extra-card-footer">
-					<div class="qty-stepper">
-						<button class="qty-btn" data-step-minus="${it.id}">−</button>
-						<input type="number" class="qty-input" value="${it.qty || 1}" readonly>
-						<button class="qty-btn" data-step-plus="${it.id}">+</button>
-					</div>
-					<button class="btn primary" style="padding:6px 12px; font-size:12px;" data-add="${it.id}">+ Add</button>
-				</div>
-			`;
+			if(it.name === "Designer Queen Size bed without storage"){
+					card.innerHTML = `
+						<div class="extra-card-header">
+							<h4 class="extra-card-title">${it.name}</h4>
+							<span class="extra-card-badge">${categoryLabel}</span>
+						</div>
+						<div style="display:flex; justify-content:space-between; align-items:center;">
+							<span class="money" style="color:var(--brand); font-size:15px">₹${Math.round(itemTotal).toLocaleString('en-IN')}</span>
+							<button class="info-btn" data-info="${it.id}">ℹ️ Details</button>
+						</div>
+						<div class="extra-card-footer">
+							<div class="qty-stepper">
+								<button class="qty-btn" data-step-minus="${it.id}">−</button>
+								<input type="number" class="qty-input" value="${it.qty || 1}" readonly>
+								<button class="qty-btn" data-step-plus="${it.id}">+</button>
+							</div>
+							<button class="btn primary" style="padding:6px 12px; font-size:12px;" data-add="${it.id}">+ Add</button>
+						</div>
+					`;
 
-			card.querySelector(`[data-step-minus="${it.id}"]`).addEventListener('click', () => {
-				if((it.qty || 1) > 1) {
-					it.qty = (it.qty || 1) - 1;
-					renderRemoved();
+					card.querySelector(`[data-step-minus="${it.id}"]`).addEventListener('click', () => {
+						if((it.qty || 1) > 1) {
+							it.qty = (it.qty || 1) - 1;
+							renderRemoved();
+						}
+					});
+
+					card.querySelector(`[data-step-plus="${it.id}"]`).addEventListener('click', () => {
+						it.qty = (it.qty || 1) + 1;
+						renderRemoved();
+					});
+				}else {
+					card.innerHTML = `
+						<div class="extra-card-header">
+							<h4 class="extra-card-title">${it.name}</h4>
+							<span class="extra-card-badge">${categoryLabel}</span>
+						</div>
+						<div style="display:flex; justify-content:space-between; align-items:center;">
+							<span class="money" style="color:var(--brand); font-size:15px">₹${Math.round(itemTotal).toLocaleString('en-IN')}</span>
+							<button class="info-btn" data-info="${it.id}">ℹ️ Details</button>
+						</div>
+						<div class="extra-card-footer">
+							
+							<button class="btn primary" style="padding:6px 12px; font-size:12px;" data-add="${it.id}">+ Add</button>
+						</div>
+					`;
 				}
-			});
-
-			card.querySelector(`[data-step-plus="${it.id}"]`).addEventListener('click', () => {
-				it.qty = (it.qty || 1) + 1;
-				renderRemoved();
-			});
 
 			card.querySelector(`[data-info="${it.id}"]`).addEventListener('click', () => {
 				openExtraModal(it);
